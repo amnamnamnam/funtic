@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "5972a349-d9df-4a95-97cd-0ab96e5cf8ad": {
+      "ProjectGuid": "5972a349-d9df-4a95-97cd-0ab96e5cf8ad",
+      "DisplayName": "ContactManager",
+      "ColorIndex": 0
+    },
+    "ed06c92f-4ffa-4a02-8d8a-761a0bdafcda": {
+      "ProjectGuid": "ed06c92f-4ffa-4a02-8d8a-761a0bdafcda",
+      "DisplayName": "FUNTIK",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
