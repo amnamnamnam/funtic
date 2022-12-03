@@ -14,19 +14,6 @@ namespace FUNTIK.Data
         #region snippet_Initialize
         public static async Task Initialize(IServiceProvider serviceProvider, string testUserPw)
         {
-            var ingredientRepository = new IngredientRepository(serviceProvider);
-            var ingredient1 = new Ingredient
-            {
-                Name = "test ingredient"
-            };
-            var ingredient2 = new Ingredient
-            {
-                Name = "test2 ingredient"
-            };
-            ingredientRepository.Create(ingredient1);
-            ingredientRepository.Create(ingredient2);
-            Debug.WriteLine(ingredient1.Id);
-            Debug.WriteLine(ingredient2.Id);
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
