@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\forna\\OneDrive\\Рабочий стол\\FUNTIK 2.0\\FUNTIK.csproj": {}
+    "C:\\Users\\nlxn\\source\\repos\\funtic\\FUNTIK.csproj": {}
   },
   "projects": {
-    "C:\\Users\\forna\\OneDrive\\Рабочий стол\\FUNTIK 2.0\\FUNTIK.csproj": {
+    "C:\\Users\\nlxn\\source\\repos\\funtic\\FUNTIK.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\forna\\OneDrive\\Рабочий стол\\FUNTIK 2.0\\FUNTIK.csproj",
+        "projectUniqueName": "C:\\Users\\nlxn\\source\\repos\\funtic\\FUNTIK.csproj",
         "projectName": "FUNTIK",
-        "projectPath": "C:\\Users\\forna\\OneDrive\\Рабочий стол\\FUNTIK 2.0\\FUNTIK.csproj",
-        "packagesPath": "C:\\Users\\forna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\forna\\OneDrive\\Рабочий стол\\FUNTIK 2.0\\obj\\",
+        "projectPath": "C:\\Users\\nlxn\\source\\repos\\funtic\\FUNTIK.csproj",
+        "packagesPath": "C:\\Users\\nlxn\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nlxn\\source\\repos\\funtic\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\forna\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\nlxn\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -56,6 +52,12 @@
               "target": "Package",
               "version": "[6.0.0, )"
             },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[6.0.0, )"
@@ -67,6 +69,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             }
           },
           "imports": [
@@ -75,7 +81,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -87,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

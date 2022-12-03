@@ -1,17 +1,32 @@
 ﻿using FUNTIK.Authorization;
 using FUNTIK.Models;
+using FUNTIK.Models.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 // dotnet aspnet-codegenerator razorpage -m Contact -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
 namespace FUNTIK.Data
 {
     public static class SeedData
     {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
+#pragma  warning disable CS8602 // Dereference of a possibly null reference.
         #region snippet_Initialize
         public static async Task Initialize(IServiceProvider serviceProvider, string testUserPw)
         {
+            var ingredientRepository = new IngredientRepository(serviceProvider);
+            var ingredient1 = new Ingredient
+            {
+                Name = "test ingredient"
+            };
+            var ingredient2 = new Ingredient
+            {
+                Name = "test2 ingredient"
+            };
+            ingredientRepository.Create(ingredient1);
+            ingredientRepository.Create(ingredient2);
+            Debug.WriteLine(ingredient1.Id);
+            Debug.WriteLine(ingredient2.Id);
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
@@ -28,6 +43,9 @@ namespace FUNTIK.Data
                 await EnsureRole(serviceProvider, managerID, Constants.ContactManagersRole);
 
                 SeedDB(context, adminID);
+                //context.Ingredients.Add(new Ingredient { Name = "Test ingredient", Type = IngredientType.Base });
+                //Console.WriteLine("Add ingredient");
+                //context.SaveChanges();
             }
         }
 
@@ -73,7 +91,7 @@ namespace FUNTIK.Data
 
             var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
 
-            //if (userManager == null)
+            //if (userManager == null)      
             //{
             //    throw new Exception("userManager is null");
             //}
@@ -130,7 +148,7 @@ namespace FUNTIK.Data
                     Status = ContactStatus.Submitted,
                     OwnerID = adminID
                 }
-             );
+            );
             context.SaveChanges();
         }
     }

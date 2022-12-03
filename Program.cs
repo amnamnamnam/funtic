@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseNpgsql(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(
@@ -46,6 +46,7 @@ builder.Services.AddSingleton<IAuthorizationHandler,
 
 var app = builder.Build();
 
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -57,8 +58,9 @@ using (var scope = app.Services.CreateScope())
 
     var testUserPw = builder.Configuration.GetValue<string>("SeedUserPW");
 
-   await SeedData.Initialize(services, testUserPw);
+    await SeedData.Initialize(services, testUserPw);
 }
+
 #endregion
 
 if (app.Environment.IsDevelopment())
@@ -94,8 +96,8 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<  ApplicationDbContext>(options =>
+    options.UseNpgsql(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(
