@@ -8,22 +8,21 @@ h1{
     font-family: Helvetica, Arial, sans-serif;
     color: #000000;
     font-size: 40px;
-    font-weight: normal;       
+    font-weight: normal; 
+    text-align: center 
 }
 
 .main_href{
     width: 15%;
     border: 1px solid #333;
-    padding: 8px 12px;
-    margin-top: 1%;
-    margin-left: 85%;
+    padding: 1%;
     text-align: center;
 }
 
 .main_href1{
     width: 56%;
     border: 1px solid #333;
-    padding: 8px 12px;
+
     margin-top: 5%;
     margin-left: auto;
     margin-right: auto;
@@ -32,21 +31,19 @@ h1{
 }
 
 .recipes{
-    width: 20em;
-    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    -ms-flex-align: center;
     text-align: center;
-    margin-top: -90px;
-    margin-left:auto;
-    margin-right:auto;
+
 }
 
 .compound{
     width: 15%;
     height:100%;
     color: #707070;
-    margin-left: 78.7%;
-    margin-right: 5%;
-    margin-top: -5%;
+    right: 0;
+    top: 0;
     position: fixed;
     background-color: #82C777;
 
@@ -64,9 +61,10 @@ h1{
     border: 1px solid #333;
     padding: 8px 12px;
     text-align: center;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top: 12.5%;
+    margin-top: 2%;
+    margin-bottom: 8%;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #82C777;
     
 }
@@ -79,9 +77,6 @@ h1{
 a {
     text-decoration: none;
     color:black
-}
-header {
-    text-align: center;
 }
 
 .toolbar {
