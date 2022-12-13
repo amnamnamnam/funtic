@@ -1,59 +1,51 @@
-main_href{
-    font-family: Helvetica, Arial, sans-serif;
-    color: #000000;
-    font-size: 40px;       
-}
-
-h1{
+main_href {
     font-family: Helvetica, Arial, sans-serif;
     color: #000000;
     font-size: 40px;
-    font-weight: normal;       
 }
 
-.main_href{
+h1 {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #000000;
+    font-size: 40px;
+    font-weight: normal;
+    text-align: center
+}
+
+.main_href {
     width: 15%;
     border: 1px solid #333;
-    padding: 8px 12px;
-    margin-top: 1%;
-    margin-left: 85%;
+    padding: 1%;
     text-align: center;
 }
 
-.main_href1{
+.main_href1 {
     width: 56%;
     border: 1px solid #333;
-    padding: 8px 12px;
     margin-top: 5%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-
 }
 
-.recipes{
-    width: 20em;
-    padding: 8px 12px;
+.recipes {
+    display: flex;
+    flex-direction: column;
+    -ms-flex-align: center;
     text-align: center;
-    margin-top: -90px;
-    margin-left:auto;
-    margin-right:auto;
 }
 
-.compound{
+.compound {
     width: 15%;
-    height:100%;
+    height: 100%;
     color: #707070;
-    margin-left: 78.7%;
-    margin-right: 5%;
-    margin-top: -5%;
+    right: 0;
+    top: 0;
     position: fixed;
     background-color: #82C777;
-
 }
 
-.main_window
-{
+.main_window {
     scroll-behavior: smooth;
     overflow: auto;
     min-height: 200vh;
@@ -64,24 +56,21 @@ h1{
     border: 1px solid #333;
     padding: 8px 12px;
     text-align: center;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top: 12.5%;
+    margin-top: 2%;
+    margin-bottom: 8%;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #82C777;
-    
 }
 
-.new_recipe:hover {
-    background-color: #99eb8c;
-    color: black;
-}
+    .new_recipe:hover {
+        background-color: #99eb8c;
+        color: black;
+    }
 
 a {
     text-decoration: none;
-    color:black
-}
-header {
-    text-align: center;
+    color: black
 }
 
 .toolbar {
@@ -96,11 +85,9 @@ header {
     width: 85%;
     background: rgb(255, 255, 255);
     height: 150px;
-
 }
 
-.toolbar_inner
-{
+.toolbar_inner {
     font-size: 40px;
     padding: 10px;
 }
@@ -110,25 +97,25 @@ header {
     overflow: hidden;
 }
 
-/* Style the links inside the navigation bar */
-.topnav a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    text-decoration: none;
-    font-size: 30px;
-    width: 25%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-}
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        text-decoration: none;
+        font-size: 30px;
+        width: 25%;
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
 
-/* Change the color of links on hover */
-.topnav a:hover {
-    background-color: #ddd;
-    color: black;
-}
+        /* Change the color of links on hover */
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
 
-.base{
+.base {
     margin-top: 10%;
     width: 85%;
 }
@@ -146,29 +133,29 @@ header {
     transition: opacity .2s;
 }
 
-.slider:hover {
-    opacity: 1;
-}
+    .slider:hover {
+        opacity: 1;
+    }
 
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 23px;
-    height: 42px;
-    border: 0;
-    background: url('slider.png');
-    cursor: pointer;
-}
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 23px;
+        height: 42px;
+        border: 0;
+        background: url('slider.png');
+        cursor: pointer;
+    }
 
-.slider::-moz-range-thumb {
-    width: 23px;
-    height: 42px;
-    border: 0;
-    background: url('slider.png');
-    cursor: pointer;
-}
+    .slider::-moz-range-thumb {
+        width: 23px;
+        height: 42px;
+        border: 0;
+        background: url('slider.png');
+        cursor: pointer;
+    }
 
-.percents{
+.percents {
     width: 85%;
     height: 1%;
 }
@@ -206,5 +193,3 @@ header {
     cursor: pointer;
     user-select: none;
 }
-
-

@@ -26,37 +26,18 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Contact) {
+@foreach (var item in Model.Recipe) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
-                           <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @if ((await AuthorizationService.AuthorizeAsync(
-                     User, item,
-                     ContactOperations.Update)).Succeeded)
-                    {
-                        <a asp-page="./Edit" asp-route-id="@item.ContactId">Edit</a>
-                        <text> | </text>
-                    }
-
-                    <a asp-page="./Details" asp-route-id="@item.ContactId">Details</a>
-
-                    @if ((await AuthorizationService.AuthorizeAsync(
-                     User, item,
-                     ContactOperations.Delete)).Succeeded)
-                    {
-                        <text> | </text>
-                        <a asp-page="./Delete" asp-route-id="@item.ContactId">Delete</a>
-                    }
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Photo)
+            </td>
             </tr>
         }
     </tbody>

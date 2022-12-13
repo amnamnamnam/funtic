@@ -19,10 +19,12 @@ namespace FUNTIK.Pages.Contacts
         {
         }
 
+        public IList<Recipe> Recipe { get; set; }
         public IList<Contact> Contact { get; set; }
 
         public async Task OnGetAsync()
         {
+            var recipes = from r in Context.Recipes select r;
             var contacts = from c in Context.Contact
                            select c;
 
@@ -40,6 +42,7 @@ namespace FUNTIK.Pages.Contacts
             }
 
             Contact = await contacts.ToListAsync();
+            Recipe = await recipes.ToListAsync();
         }
     }
     #endregion

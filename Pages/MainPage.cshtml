@@ -1,5 +1,7 @@
-﻿@page
-@model FUNTIK.Pages.MainPageModel
+﻿
+@page
+
+@model FUNTIK.Pages.Contacts.IndexModel
 @{
 	ViewData["Title"] = "MainPage";
 }
@@ -11,14 +13,30 @@
 	<link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 <body>
-	<div>
-		<h1>Рецепты</h1>
+	<div class="main_window">
 		<div class="recipes">
+			<h1>Рецепты</h1>
+			
 			<div class="new_recipe">
-				<header><main_href><a href="https://localhost:44396/NewRecipe">Новый Рецепт</a></main_href></header>
+				<main_href><a href="https://localhost:44396/NewRecipe">Новый Рецепт</a></main_href>
 			</div>
+
+			<h1>Мои рецепты</h1>
+			<table class="table">
+            
+            <tbody>
+        @foreach (var item in Model.Recipe) 
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
 		</div>
-		<footer></footer>
 	</div>
 </body>
 </html>

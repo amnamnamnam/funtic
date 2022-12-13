@@ -44,6 +44,7 @@ builder.Services.AddSingleton<IAuthorizationHandler,
 builder.Services.AddSingleton<IAuthorizationHandler,
                       FUNTIKAuthorizationHandler>();
 
+//builder.Services.AddSingleton<IServiceProvider, >();
 var app = builder.Build();
 
 
