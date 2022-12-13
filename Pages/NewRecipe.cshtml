@@ -36,25 +36,21 @@
         <div class="base">
             <div class=percents>
                 <div class="input-number">
-                    <div class="input-number__minus">-</div>
-                    <input class="input-number__input" type="text" pattern="^[0-9]+$" value="0" max="100" min="0">
-                    <div class="input-number__plus">+</div>
+                    <input name="CocoaPercents" type="number" min="0" max="100" value="0" class="number" step="any" id="CocoaPercents">
                 </div>
 
                 <div class="slidecontainer">
-                    <input type="range" min="0" max="100" value="0" class="slider" step="any" id="myRange">
+                    <input name="CocoaSlider" type="range" min="0" max="100" value="0" class="slider" step="any" id="CocoaSlider">
                 </div>
             </div>
-
-
-            <div class="input-number">
-                <div class="input-number__minus">-</div>
-                <input class="input-number__input" type="text" pattern="^[0-9]+$" value="0" max="100" min="0">
-                <div class="input-number__plus">+</div>
-            </div>
+            <div class=percents>
+                <div class="input-number">
+                    <input name="FatPercents" type="number" min="0" max="100" value="0" class="number" step="any" id="FatPercents">
+                </div>
 
             <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="0" class="slider" step="any" id="myRange">
+                <input name="FatSlider" type="range" min="0" max="100" value="0" class="slider" step="any" id="FatSlider">
+            </div>
             </div>
         </div>
     </div>

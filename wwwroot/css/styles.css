@@ -162,36 +162,6 @@ a {
     height: 1%;
 }
 
-/* input type number */
-.input-number {
-    display: flex;
-    align-items: center;
-    background: #FFFFFF;
-    border: 1px solid #E5E8EE;
-    box-sizing: border-box;
-    border-radius: 6px;
-    color: #424348;
-    font-size: 14px;
-    text-align: center;
-    width: 7%;
-}
-
-.input-number__input {
-    background: #E5E8EE;
-    width: 32px;
-    height: 32px;
-    border: none;
-    padding: 8px;
-    text-align: center;
-}
-
-.input-number__minus,
-.input-number__plus {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    user-select: none;
+.number{
+    width: 10%;
 }
