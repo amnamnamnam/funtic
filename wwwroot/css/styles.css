@@ -8,8 +8,8 @@ h1 {
     font-family: Helvetica, Arial, sans-serif;
     color: #000000;
     font-size: 40px;
-    font-weight: normal;
-    text-align: center
+    font-weight: normal; 
+    text-align: center 
 }
 
 .main_href {
@@ -22,17 +22,19 @@ h1 {
 .main_href1 {
     width: 56%;
     border: 1px solid #333;
+
     margin-top: 5%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
 
-.recipes {
+.recipes{
     display: flex;
     flex-direction: column;
     -ms-flex-align: center;
     text-align: center;
+
 }
 
 .compound {
@@ -70,7 +72,7 @@ h1 {
 
 a {
     text-decoration: none;
-    color: black
+    color:black
 }
 
 .toolbar {
