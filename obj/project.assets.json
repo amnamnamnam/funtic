@@ -10745,26 +10745,35 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nlxn\\.nuget\\packages\\": {}
+    "C:\\Users\\lisac\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nlxn\\source\\repos\\funtic\\FUNTIK.csproj",
+      "projectUniqueName": "C:\\Users\\lisac\\Source\\Repos\\funtic\\FUNTIK.csproj",
       "projectName": "FUNTIK",
-      "projectPath": "C:\\Users\\nlxn\\source\\repos\\funtic\\FUNTIK.csproj",
-      "packagesPath": "C:\\Users\\nlxn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nlxn\\source\\repos\\funtic\\obj\\",
+      "projectPath": "C:\\Users\\lisac\\Source\\Repos\\funtic\\FUNTIK.csproj",
+      "packagesPath": "C:\\Users\\lisac\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lisac\\Source\\Repos\\funtic\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\nlxn\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\lisac\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

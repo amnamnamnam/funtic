@@ -1,0 +1,62 @@
+﻿@page
+@model FUNTIK.Pages.NewRecipeModel
+@{
+    ViewData["Title"] = "NewRecipe";
+}
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Funtic</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+    <div class="main_window">
+        <div class="toolbar">
+            <div class="toolbar_inner">
+                Новый рецепт
+            </div>
+
+            <div class="topnav">
+                <a href="#base">Основа</a>
+                <a href="#nuts">Орехи</a>
+                <a href="#candied_fruits">Цукаты</a>
+                <a href="#infusion">Пропитки</a>
+            </div>
+        </div>
+
+        <div class="compound">
+
+            <div class="main_href1">
+                <main_href><a href="https://localhost:44396/MainPage">Funtic</a></main_href>
+            </div>
+
+        </div>
+
+        <div class="base">
+            <div class=percents>
+                <div class="input-number">
+                    <div class="input-number__minus">-</div>
+                    <input class="input-number__input" type="text" pattern="^[0-9]+$" value="0" max="100" min="0">
+                    <div class="input-number__plus">+</div>
+                </div>
+
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="100" value="0" class="slider" step="any" id="myRange">
+                </div>
+            </div>
+
+
+            <div class="input-number">
+                <div class="input-number__minus">-</div>
+                <input class="input-number__input" type="text" pattern="^[0-9]+$" value="0" max="100" min="0">
+                <div class="input-number__plus">+</div>
+            </div>
+
+            <div class="slidecontainer">
+                <input type="range" min="0" max="100" value="0" class="slider" step="any" id="myRange">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
