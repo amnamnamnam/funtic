@@ -14,6 +14,16 @@ public class ApplicationDbContext : IdentityDbContext
         //Database.EnsureDeleted();
         //Database.EnsureCreated();
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Ingredient>()
+        .HasOne(i => i.Recipe)
+        .WithMany(r => r.Ingredients)
+        .OnDelete(DeleteBehavior.Cascade);
+    }
+
     public DbSet<Contact> Contact { get; set; }
     public DbSet<Ingredient> Ingredients { get; set; } = null!;
     public DbSet<Recipe> Recipes { get; set; } = null!;

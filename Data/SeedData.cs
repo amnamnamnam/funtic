@@ -14,6 +14,17 @@ namespace FUNTIK.Data
         #region snippet_Initialize
         public static async Task Initialize(IServiceProvider serviceProvider, string testUserPw)
         {
+            //var r = new Recipe { Name = "Шоколад С кофе" };
+            //var bace = new Ingredient { Name = "Какая-то основа", Type = IngredientType.Base };
+            //var coffee = new Ingredient { Name = "Кофе", Type = IngredientType.Custom };
+            var sugar = new Ingredient { Name = "Сахар" };
+            //r.Ingredients.Add(bace);
+            //r.Ingredients.Add(coffee);
+            var recipeRepository = new RecipeRepository(serviceProvider);
+            //recipeRepository.Create(r);
+            var r = recipeRepository.Find(x => x.Name == "Шоколад С кофе");
+            Debug.WriteLine("This is ingredients"   );
+            //recipeRepository.Delete(r);
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {

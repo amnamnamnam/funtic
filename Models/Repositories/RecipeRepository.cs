@@ -1,72 +1,71 @@
 ﻿using FUNTIK.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Diagnostics;
 
 namespace FUNTIK.Models.Repositories
 {
-    public interface IIngredientRepository
+    public interface IRecipeRepository
     {
-        public void Create(Ingredient ingredient);
-        public void Update(Ingredient ingredient);
-        public Ingredient? Find(Func<Ingredient, bool> func);
-        public List<Ingredient> FindAll(Func<Ingredient, bool> func);
-        public void Delete(Ingredient ingredient);
+        public void Create(Recipe recipe);
+        public void Delete(Recipe recipe);
+        public Recipe? Find(Func<Recipe, bool> func);
+        public List<Recipe> FindAll(Func<Recipe, bool> func);
+        public void Update(Recipe recipe);
     }
 
-    public class IngredientRepository : IIngredientRepository
+
+
+    public class RecipeRepository : IRecipeRepository
     {
         private readonly IServiceProvider serviceProvider;
-        public IngredientRepository(IServiceProvider serviceProvider)
+        public RecipeRepository(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
         }
 
-        public void Create(Ingredient ingredient)
+        public void Create(Recipe recipe)
         {
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                context.Ingredients.Add(ingredient);
+                context.Recipes.Add(recipe);
                 context.SaveChanges();
             }
         }
 
-        public void Delete(Ingredient ingredient)
+        public void Delete(Recipe recipe)
         {
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                context.Ingredients.Remove(ingredient);
+                context.Recipes.Remove(recipe);
                 context.SaveChanges();
             }
         }
 
-        public Ingredient? Find(Func<Ingredient, bool> func)
+        public Recipe? Find(Func<Recipe, bool> func)
         {
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                return context.Ingredients.FirstOrDefault(func);
+                return context.Recipes.Include(r => r.Ingredients).FirstOrDefault(func);
             }
         }
 
-        public List<Ingredient> FindAll(Func<Ingredient, bool> func)
+        public List<Recipe> FindAll(Func<Recipe, bool> func)
         {
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                return context.Ingredients.Where(func).ToList();
+                return context.Recipes.Where(func).ToList();
             }
         }
 
-        public void Update(Ingredient ingredient)
+        public void Update(Recipe recipe)
         {
             using (var context = new ApplicationDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                context.Ingredients.Update(ingredient);
+                context.Recipes.Update(recipe);
                 context.SaveChanges();
             }
         }
