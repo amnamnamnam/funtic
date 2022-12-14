@@ -14,10 +14,10 @@ namespace FUNTIK.Pages
         {
             this.context = context;
             var recipeRepository = new RecipeRepository(context);
-            var r = new Recipe { Name = "Шоколад С кофе" };
-            var bace = new Ingredient { Name = "Какая-то основа", Type = IngredientType.Base };
-            var coffee = new Ingredient { Name = "Кофе", Type = IngredientType.Custom };
-            var sugar = new Ingredient { Name = "Сахар" };
+            var r = new Recipe { Name = "РЁРѕРєРѕР»Р°Рґ РЎ РєРѕС„Рµ" };
+            var bace = new Ingredient { Name = "РљР°РєР°СЏ-С‚Рѕ РѕСЃРЅРѕРІР°", Type = IngredientType.Base };
+            var coffee = new Ingredient { Name = "РљРѕС„Рµ", Type = IngredientType.Custom };
+            var sugar = new Ingredient { Name = "РЎР°С…Р°СЂ" };
             r.Ingredients.Add(bace);
             r.Ingredients.Add(coffee);
             r.Ingredients.Add(sugar);
