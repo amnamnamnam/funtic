@@ -44,11 +44,10 @@ builder.Services.AddSingleton<IAuthorizationHandler,
 builder.Services.AddSingleton<IAuthorizationHandler,
                       FUNTIKAuthorizationHandler>();
 
-//builder.Services.AddSingleton<IServiceProvider, >();
 var app = builder.Build();
 
 
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
@@ -60,7 +59,7 @@ using (var scope = app.Services.CreateScope())
     var testUserPw = builder.Configuration.GetValue<string>("SeedUserPW");
 
     await SeedData.Initialize(services, testUserPw);
-}
+}*/
 
 #endregion
 
@@ -73,7 +72,7 @@ else
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
-
+    
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

@@ -17,58 +17,38 @@ namespace FUNTIK.Models.Repositories
 
     public class IngredientRepository : IIngredientRepository
     {
-        private readonly IServiceProvider serviceProvider;
-        public IngredientRepository(IServiceProvider serviceProvider)
+        private readonly ApplicationDbContext context;
+        public IngredientRepository(ApplicationDbContext context)
         {
-            this.serviceProvider = serviceProvider;
+            this.context = context;
         }
 
         public void Create(Ingredient ingredient)
         {
-            using (var context = new ApplicationDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
-            {
-                context.Ingredients.Add(ingredient);
-                context.SaveChanges();
-            }
+            context.Ingredients.Add(ingredient);
+            context.SaveChanges();
         }
 
         public void Delete(Ingredient ingredient)
         {
-            using (var context = new ApplicationDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
-            {
-                context.Ingredients.Remove(ingredient);
-                context.SaveChanges();
-            }
+            context.Ingredients.Remove(ingredient);
+            context.SaveChanges();
         }
 
         public Ingredient? Find(Func<Ingredient, bool> func)
         {
-            using (var context = new ApplicationDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
-            {
-                return context.Ingredients.FirstOrDefault(func);
-            }
+            return context.Ingredients.FirstOrDefault(func);
         }
 
         public List<Ingredient> FindAll(Func<Ingredient, bool> func)
         {
-            using (var context = new ApplicationDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
-            {
-                return context.Ingredients.Where(func).ToList();
-            }
+            return context.Ingredients.Where(func).ToList();
         }
 
         public void Update(Ingredient ingredient)
         {
-            using (var context = new ApplicationDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
-            {
-                context.Ingredients.Update(ingredient);
-                context.SaveChanges();
-            }
+            context.Ingredients.Update(ingredient);
+            context.SaveChanges();
         }
     }
 }
