@@ -47,7 +47,7 @@ builder.Services.AddSingleton<IAuthorizationHandler,
 var app = builder.Build();
 
 
-/*using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
@@ -59,7 +59,7 @@ var app = builder.Build();
     var testUserPw = builder.Configuration.GetValue<string>("SeedUserPW");
 
     await SeedData.Initialize(services, testUserPw);
-}*/
+}
 
 #endregion
 
