@@ -20,7 +20,7 @@ namespace FUNTIK.Data
             var sugar = new Ingredient { Name = "Сахар" };
             r.Ingredients.Add(bace);
             r.Ingredients.Add(coffee);
-            r.Ingredients.Add(sugar);
+                r.Ingredients.Add(sugar);
             var recipeRepository = new RecipeRepository(serviceProvider);
             recipeRepository.Create(r);
 
