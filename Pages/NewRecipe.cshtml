@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model FUNTIK.Pages.NewRecipeModel
 @{
     ViewData["Title"] = "NewRecipe";
@@ -35,6 +35,31 @@
 
         <div class="base">
             <div class=percents>
+                
+                <form method="post" >
+                    <p>
+                        <label>mass:</label><br />
+                        <input type="number" name="mass" />
+                    </p>
+                    <p>
+                        <label>sugar:</label><br />
+                        <input type="number" name="sugarpercent" />
+                    </p>
+                    <p>
+                        <label>milk:</label><br />
+                        <input type="number" name="milkpercent" />
+                    </p>
+                    <p>
+                        <label>fat:</label><br />
+                        <input type="number" name="fatpercent" />
+                    </p>
+                    <p>
+                        <label>cocoa:</label><br />
+                        <input type="number" name="cocoapercent" />
+                    </p>
+                    <input type="submit" value="Отправить" />
+                </form>
+                <h2>@Model.Message</h2>
                 <div class="input-number">
                     <input name="CocoaPercents" type="number" min="0" max="100" value="0" class="number" step="any" id="CocoaPercents">
                 </div>
