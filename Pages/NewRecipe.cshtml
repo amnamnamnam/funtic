@@ -1,4 +1,4 @@
-@page
+    @page
 @model FUNTIK.Pages.NewRecipeModel
 @{
     ViewData["Title"] = "NewRecipe";
@@ -9,6 +9,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>Funtic</title>
     <link rel="stylesheet" href="styles.css" type="text/css">
+
 </head>
 <body>
     <div class="main_window">
@@ -43,21 +44,21 @@
                     </p>
                     <p>
                         <label>sugar:</label><br />
-                        <input type="number" name="sugarpercent" />
+                        <input type="number" name="sugarpercent" oninput="toggleButton()" />
                     </p>
                     <p>
                         <label>milk:</label><br />
-                        <input type="number" name="milkpercent" />
+                        <input type="number" name="milkpercent" oninput="toggleButton()" />
                     </p>
                     <p>
                         <label>fat:</label><br />
-                        <input type="number" name="fatpercent" />
+                        <input type="number" name="fatpercent" oninput="toggleButton()" />
                     </p>
                     <p>
                         <label>cocoa:</label><br />
-                        <input type="number" name="cocoapercent" />
+                        <input type="number" name="cocoapercent" oninput="toggleButton()" />
                     </p>
-                    <input type="submit" value="Отправить" />
+                    <input type="submit" id="send" value="Отправить" disabled="" />
                 </form>
                 <h2>@Model.Message</h2>
                 <div class="input-number">
@@ -79,5 +80,7 @@
             </div>
         </div>
     </div>
+
+
 </body>
 </html>
