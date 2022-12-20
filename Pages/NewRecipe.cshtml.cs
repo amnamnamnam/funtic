@@ -12,14 +12,17 @@ namespace FUNTIK.Pages
         
         public void OnPost(int mass, int sugarpercent, int milkpercent, int fatpercent, int cocoapercent)
         {
-            //RecipeMaker = new RecipeMaker();
             RecipeMaker.UpdateRecipeBase(mass, cocoapercent, fatpercent, sugarpercent, milkpercent);
-            Message = $"Recipe {RecipeMaker.Recipe.Mass} {RecipeMaker.Recipe.FatPercent} {RecipeMaker.Recipe.CacaoPercent}";
+            Message = $"Масса вашей основы {RecipeMaker.Recipe.Mass} гр, из них: \r\n " +
+                    $"{RecipeMaker.milk.WeightInGrams} гр молока; \r\n {RecipeMaker.cocoa.WeightInGrams} гр какао; \r\n {RecipeMaker.sugar.WeightInGrams} гр сахара; \r\n {RecipeMaker.addedFats.WeightInGrams} гр какао-масла.";
         }
 
         public void OnGet()
         {
-            Message = $"Recipe {RecipeMaker.Recipe.Mass} {RecipeMaker.Recipe.FatPercent} {RecipeMaker.Recipe.CacaoPercent}";
+            if (RecipeMaker.Recipe.Mass == 0) Message = "Введите состав шоколада";
+            else Message = $"Масса вашей основы {RecipeMaker.Recipe.Mass} гр, из них: \r\n " +
+                    $"{RecipeMaker.milk.WeightInGrams} гр молока; \r\n {RecipeMaker.cocoa.WeightInGrams} гр какао; \r\n {RecipeMaker.sugar.WeightInGrams} гр сахара; \r\n {RecipeMaker.addedFats.WeightInGrams} гр какао-масла.";
+
         }
     }
 }
