@@ -1,4 +1,4 @@
-    @page
+@page
 @model FUNTIK.Pages.NewRecipeModel
 @{
     ViewData["Title"] = "NewRecipe";
@@ -9,7 +9,6 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>Funtic</title>
     <link rel="stylesheet" href="styles.css" type="text/css">
-
 </head>
 <body>
     <div class="main_window">
@@ -28,10 +27,6 @@
 
         <div class="compound">
 
-            <div class="main_href1">
-                <main_href><a href="https://localhost:44396/MainPage">Funtic</a></main_href>
-            </div>
-
         </div>
 
         <div class="base">
@@ -39,48 +34,31 @@
                 
                 <form method="post" >
                     <p>
-                        <label>mass:</label><br />
-                        <input type="number" name="mass" />
+                        <label>Масса основы:</label><br />
+                        <input type="number" name="mass" min="0" value="0" step="any"/>
                     </p>
                     <p>
-                        <label>sugar:</label><br />
-                        <input type="number" name="sugarpercent" oninput="toggleButton()" />
+                        <label>Содержание какао:</label><br />
+                        <input type="number" name="cocoapercent" oninput="toggleButton()" min="0" max="100" value="0" step="any"/>
                     </p>
                     <p>
-                        <label>milk:</label><br />
-                        <input type="number" name="milkpercent" oninput="toggleButton()" />
+                        <label>Содержание какао-масла:</label><br />
+                        <input type="number" name="fatpercent" oninput="toggleButton()" min="0" max="100" value="0" step="any"/>
                     </p>
                     <p>
-                        <label>fat:</label><br />
-                        <input type="number" name="fatpercent" oninput="toggleButton()" />
+                        <label>Содержание сахара:</label><br />
+                        <input type="number" name="sugarpercent" oninput="toggleButton()" min="0" max="100" value="0" step="any"/>
                     </p>
                     <p>
-                        <label>cocoa:</label><br />
-                        <input type="number" name="cocoapercent" oninput="toggleButton()" />
+                        <label>Содержание молока:</label><br />
+                        <input type="number" name="milkpercent" oninput="toggleButton()" min="0" max="100" value="0" step="any"/>
                     </p>
-                    <input type="submit" id="send" value="Отправить" disabled="" />
+                    
+                     <input type="submit" id="send" value="Отправить" disabled="" />
                 </form>
                 <h2>@Model.Message</h2>
-                <div class="input-number">
-                    <input name="CocoaPercents" type="number" min="0" max="100" value="0" class="number" step="any" id="CocoaPercents">
-                </div>
-
-                <div class="slidecontainer">
-                    <input name="CocoaSlider" type="range" min="0" max="100" value="0" class="slider" step="any" id="CocoaSlider">
-                </div>
-            </div>
-            <div class=percents>
-                <div class="input-number">
-                    <input name="FatPercents" type="number" min="0" max="100" value="0" class="number" step="any" id="FatPercents">
-                </div>
-
-            <div class="slidecontainer">
-                <input name="FatSlider" type="range" min="0" max="100" value="0" class="slider" step="any" id="FatSlider">
-            </div>
             </div>
         </div>
     </div>
-
-
 </body>
 </html>
