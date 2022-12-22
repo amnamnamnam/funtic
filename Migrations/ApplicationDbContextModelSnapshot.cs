@@ -100,12 +100,45 @@ namespace FUNTIK.Migrations
                     b.Property<byte[]>("Photo")
                         .HasColumnType("bytea");
 
+                    b.Property<string>("ShelfLife")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("SugarPercent")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("FUNTIK.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Contacts")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -318,6 +351,13 @@ namespace FUNTIK.Migrations
                     b.Navigation("Recipe");
                 });
 
+            modelBuilder.Entity("FUNTIK.Models.Recipe", b =>
+                {
+                    b.HasOne("FUNTIK.Models.User", null)
+                        .WithMany("Recipes")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -372,6 +412,11 @@ namespace FUNTIK.Migrations
             modelBuilder.Entity("FUNTIK.Models.Recipe", b =>
                 {
                     b.Navigation("Ingredients");
+                });
+
+            modelBuilder.Entity("FUNTIK.Models.User", b =>
+                {
+                    b.Navigation("Recipes");
                 });
 #pragma warning restore 612, 618
         }

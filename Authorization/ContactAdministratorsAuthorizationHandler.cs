@@ -18,7 +18,6 @@ namespace FUNTIK.Authorization
                 return Task.CompletedTask;
             }
 
-            // Administrators can do anything.
             if (context.User.IsInRole(Constants.ContactAdministratorsRole))
             {
                 context.Succeed(requirement);

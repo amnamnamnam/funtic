@@ -34,6 +34,7 @@ namespace FUNTIK.Models.Repositories
             context.SaveChanges();
         }
 
+        //отдельно лямбды (не func)
         public Recipe? Find(Func<Recipe, bool> func)
         {
             return context.Recipes.Include(r => r.Ingredients).FirstOrDefault(func);

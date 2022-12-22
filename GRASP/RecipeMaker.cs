@@ -23,9 +23,25 @@ namespace FUNTIK.GRASP
             cocoa.WeightInGrams = cacaoP * mass / 100;
             sugar.WeightInGrams = sugarP * mass / 100;
             milk.WeightInGrams = milkP * mass / 100;
+            AddIngredients(new List<Ingredient> { milk, cocoa, addedFats, sugar });
 
         }
+        //TODO: 
+        
+        public void AddIngredients(List<Ingredient> ingredients)
+        {
+            Recipe.Ingredients = Recipe.Ingredients.Concat(ingredients).ToList();
+        }
 
+        public bool DeleteIngredient(Ingredient ingredient)
+        {
+            if (Recipe.Ingredients.Contains(ingredient))
+            {
+                Recipe.Ingredients.Remove(ingredient);
+                return true;
+            }
+            return false;
+        }
     }
 
  

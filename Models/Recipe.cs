@@ -13,9 +13,10 @@ namespace FUNTIK.Models
         public int SugarPercent { get; set; }
         public int MilkPersent { get; set; }
 
-
         public List<Ingredient> Ingredients { get; set; } = new();
         public byte[]? Photo { get; set; }
+
+        public string ShelfLife  { get; set; }
         
     }
 }

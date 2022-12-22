@@ -9,11 +9,14 @@ namespace FUNTIK.Models
     {
         public int  Id { get; set; }
         public string Email { get; set; }
+ 
         public List<Recipe> Recipes { get; set; } = new();
 
         public User(string email)
         {
             Email = email;
         }
+
+        public string Contacts { get; set; }
     }
 }

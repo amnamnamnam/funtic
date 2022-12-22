@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using FUNTIK.Data;
 using Microsoft.AspNetCore.Authorization;
 using FUNTIK.Authorization;
+using FUNTIK.Models.Repositories;
 
 // snippet3 used in next define
 #region snippet4  
@@ -43,6 +44,13 @@ builder.Services.AddSingleton<IAuthorizationHandler,
 
 builder.Services.AddSingleton<IAuthorizationHandler,
                       FUNTIKAuthorizationHandler>();
+
+/*builder.Services.AddSingleton<IIngredientRepository, IngredientRepository>();
+
+builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
+
+builder.Services.AddSingleton<IUserRepository, UserRepository>();*/
+
 
 var app = builder.Build();
 

@@ -39,26 +39,45 @@
                     </p>
                     <p>
                         <label>Содержание какао:</label><br />
-                        <input type="number" name="cocoapercent" oninput="toggleButton()" min="0" max="100" value="0" step="any"/>
+                        <input type="number" name="cocoapercent" oninput="toggleButton()" min="0" max="100" value="0" step="any" />
                     </p>
                     <p>
                         <label>Содержание какао-масла:</label><br />
-                        <input type="number" name="fatpercent" oninput="toggleButton()" min="0" max="100" value="0" step="any"/>
+                        <input type="number" name="fatpercent" oninput="toggleButton()" min="0" max="100" value="0" step="any" />
                     </p>
                     <p>
                         <label>Содержание сахара:</label><br />
-                        <input type="number" name="sugarpercent" oninput="toggleButton()" min="0" max="100" value="0" step="any"/>
+                        <input type="number" name="sugarpercent" oninput="toggleButton()" min="0" max="100" value="0" step="any" />
                     </p>
                     <p>
                         <label>Содержание молока:</label><br />
-                        <input type="number" name="milkpercent" oninput="toggleButton()" min="0" max="100" value="0" step="any"/>
+                        <input type="number" name="milkpercent" oninput="toggleButton()" min="0" max="100" value="0" step="any" />
                     </p>
-                    
-                     <input type="submit" id="send" value="Отправить" disabled="" />
+
+                    <input type="submit" asp-page-handler="Base" id="send" value="Отправить" disabled="" />
                 </form>
                 <h2>@Model.Message</h2>
             </div>
         </div>
+
+        <form method="post">
+            <table>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    <tr>
+                        <td>
+                            <input id="@ingredient.Name" type="checkbox" name="Ingredient" value="@ingredient.Name" checked="checked" />
+                        </td>
+                        <td>
+                            <label for="@ingredient.Name">@ingredient.Name</label>
+                        </td>
+                    </tr>
+                }
+            </table>
+            <br />
+            <input type="submit" value="Submit" asp-page-handler="Submit" />
+        </form>
+
     </div>
 </body>
 </html>
