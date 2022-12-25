@@ -22,6 +22,8 @@
                 <a href="#nuts">Орехи</a>
                 <a href="#candied_fruits">Цукаты</a>
                 <a href="#infusion">Пропитки</a>
+                <a href="#impregnations">Начинки</a>
+                <a href="#other">Другое</a>
             </div>
         </div>
 
@@ -66,16 +68,16 @@
                 {
                     <tr>
                         <td>
-                            <input id="@ingredient.Name" type="checkbox" name="Ingredient" value="@ingredient.Name" checked="checked" />
+                            <input id="@ingredient.MetaIngredient.Name" type="checkbox" name="Ingredient" value="@ingredient.MetaIngredient.Name" checked="checked" />
                         </td>
                         <td>
-                            <label for="@ingredient.Name">@ingredient.Name</label>
+                            <label for="@ingredient.MetaIngredient.Name">@ingredient.MetaIngredient.Name</label>
                         </td>
                     </tr>
                 }
             </table>
             <br />
-            <input type="submit" value="Submit" asp-page-handler="Submit" />
+            <input type="submit" value="Submit" asp-page-handler="Nuts" />
         </form>
 
     </div>

@@ -17,6 +17,8 @@ namespace FUNTIK.Models
             Email = email;
         }
 
-        public string Contacts { get; set; }
+        public List<MetaIngredient> CustomIngredients { get; set; } = new();
+
+        public string? Contacts { get; set; }
     }
 }

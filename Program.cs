@@ -45,14 +45,19 @@ builder.Services.AddSingleton<IAuthorizationHandler,
 builder.Services.AddSingleton<IAuthorizationHandler,
                       FUNTIKAuthorizationHandler>();
 
-/*builder.Services.AddSingleton<IIngredientRepository, IngredientRepository>();
+builder.Services.AddScoped<IIngredientRepository, IngredientRepository>();
 
-builder.Services.AddSingleton<IRecipeRepository, RecipeRepository>();
+builder.Services.AddScoped<IMetaIngredientRepository, MetaIngredientRepository>();
 
-builder.Services.AddSingleton<IUserRepository, UserRepository>();*/
+builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
 
-var app = builder.Build();
+builder.Services.AddScoped<IUserRepository, UserRepository>(); 
+    
+
+
+
+ var app = builder.Build();
 
 
 using (var scope = app.Services.CreateScope())

@@ -3,11 +3,16 @@
 namespace FUNTIK.GRASP
 {
     public class RecipeMaker
-    {
-        public Ingredient milk = new Ingredient { Name = "Молоко" };
-        public Ingredient cocoa = new Ingredient { Name = "Какао" };
-        public Ingredient addedFats = new Ingredient { Name = "Добавочное масло" };
-        public Ingredient sugar = new Ingredient { Name = "Сахар" };
+    {   
+        public static MetaIngredient milk = new MetaIngredient { Name = "Молоко" };
+        public static MetaIngredient cocoa = new MetaIngredient { Name = "Какао" };
+        public static MetaIngredient addedFats = new MetaIngredient { Name = "Добавочное масло" };
+        public static MetaIngredient sugar = new MetaIngredient { Name = "Сахар" };
+
+        public Ingredient milkIng = new Ingredient { MetaIngredient = milk };
+        public Ingredient cocoaIng = new Ingredient { MetaIngredient = cocoa };
+        public Ingredient addedFatsIng = new Ingredient { MetaIngredient = addedFats };
+        public Ingredient sugarIng = new Ingredient { MetaIngredient = sugar };
 
         public Recipe Recipe = new();
 
@@ -19,11 +24,12 @@ namespace FUNTIK.GRASP
             Recipe.SugarPercent = sugarP;
             Recipe.MilkPersent = milkP;
             var addedFatsPercent = fatsP - cacaoP * 53 / 100;
-            addedFats.WeightInGrams = addedFatsPercent * mass / 100;
-            cocoa.WeightInGrams = cacaoP * mass / 100;
-            sugar.WeightInGrams = sugarP * mass / 100;
-            milk.WeightInGrams = milkP * mass / 100;
-            AddIngredients(new List<Ingredient> { milk, cocoa, addedFats, sugar });
+            
+            addedFatsIng.WeightInGrams = addedFatsPercent * mass / 100;
+            cocoaIng.WeightInGrams = cacaoP * mass / 100;
+            sugarIng.WeightInGrams = sugarP * mass / 100;
+            milkIng.WeightInGrams = milkP * mass / 100;
+            AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, milkIng });
 
         }
         //TODO: 

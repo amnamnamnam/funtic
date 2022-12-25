@@ -19,9 +19,9 @@ namespace FUNTIK.Pages
         {
             Ingredients = new List<Ingredient>
             {
-                new Ingredient { Name = "Грецкий орех" },
-                new Ingredient { Name = "Фундук цельный" },
-                new Ingredient { Name = "Фундук не очень цельный" }
+                new Ingredient { MetaIngredient = new MetaIngredient { Name = "Грецкий орех" } },
+                new Ingredient { MetaIngredient = new MetaIngredient { Name = "Фундук цельный" }  },
+                new Ingredient { MetaIngredient = new MetaIngredient { Name = "Фундук не очень цельный" } }
             };
         }
 
@@ -29,16 +29,14 @@ namespace FUNTIK.Pages
         {
             RecipeMaker.UpdateRecipeBase(mass, cocoapercent, fatpercent, sugarpercent, milkpercent);
             Message = $"Масса вашей основы {RecipeMaker.Recipe.Mass} гр, из них: \r\n " +
-                    $"{RecipeMaker.milk.WeightInGrams} гр молока; \r\n {RecipeMaker.cocoa.WeightInGrams} гр какао; \r\n {RecipeMaker.sugar.WeightInGrams} гр сахара; \r\n {RecipeMaker.addedFats.WeightInGrams} гр какао-масла.";
+                    $"{RecipeMaker.milkIng.WeightInGrams} гр молока; \r\n {RecipeMaker.cocoaIng.WeightInGrams} гр какао; \r\n {RecipeMaker.sugarIng.WeightInGrams} гр сахара; \r\n {RecipeMaker.addedFatsIng.WeightInGrams} гр какао-масла.";
             var LM = new LabelMaker(RecipeMaker.Recipe, new User("fuckyou"));
             var lablstr = LM.CreateLabelString();
             var label = LM.CreateLabel(lablstr);
             LM.SaveImage(label);
-
-
         }
 
-        public void OnPostSubmit(string[] ingredient)
+        public void OnPostNuts(string[] ingredient)
         {
             string message = "Selected Items:\\n";
             foreach (var i in ingredient)
@@ -48,11 +46,16 @@ namespace FUNTIK.Pages
             Message = message;
         }
 
+        public void OnPostFinal()
+        {
+
+        }
+
         public void OnGet()
         {
             if (RecipeMaker.Recipe.Mass == 0) Message = "Введите состав шоколада";
             else Message = $"Масса вашей основы {RecipeMaker.Recipe.Mass} гр, из них: \r\n " +
-                    $"{RecipeMaker.milk.WeightInGrams} гр молока; \r\n {RecipeMaker.cocoa.WeightInGrams} гр какао; \r\n {RecipeMaker.sugar.WeightInGrams} гр сахара; \r\n {RecipeMaker.addedFats.WeightInGrams} гр какао-масла.";
+                    $"{RecipeMaker.milkIng.WeightInGrams} гр молока; \r\n {RecipeMaker.cocoaIng.WeightInGrams} гр какао; \r\n {RecipeMaker.sugarIng.WeightInGrams} гр сахара; \r\n {RecipeMaker.addedFatsIng.WeightInGrams} гр какао-масла.";
 
         }
     }

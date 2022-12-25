@@ -8,13 +8,14 @@ namespace FUNTIK.Models.Repositories
         public void Create(User user);
         public void Delete(User user);
         public User? Find(Func<User, bool> func);
+        public User? FindUserByEmail(string email);
         public List<User> FindAll(Func<User, bool> func);
         public void Update(User user);
     }
 
 
 
-    public class UserRepository : IUserRepository
+    public class UserRepository: IUserRepository
     {
         private readonly ApplicationDbContext context;
         public UserRepository(ApplicationDbContext context)
@@ -34,10 +35,16 @@ namespace FUNTIK.Models.Repositories
             context.SaveChanges();
         }
 
+        public User? FindUserByEmail(string email)
+        {
+            return context.Users.FirstOrDefault(i => i.Email == email);
+        }
+
         public User? Find(Func<User, bool> func)
         {
             return context.Users.Include(r => r.Recipes).FirstOrDefault(func);
         }
+
 
         public List<User> FindAll(Func<User, bool> func)
         {

@@ -55,13 +55,10 @@ namespace FUNTIK.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("RecipeId")
+                    b.Property<int>("MetaIngredientId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("RecipeId")
                         .HasColumnType("integer");
 
                     b.Property<int>("WeightInGrams")
@@ -69,9 +66,35 @@ namespace FUNTIK.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MetaIngredientId");
+
                     b.HasIndex("RecipeId");
 
                     b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("FUNTIK.Models.MetaIngredient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MetaIngredients");
                 });
 
             modelBuilder.Entity("FUNTIK.Models.Recipe", b =>
@@ -107,7 +130,7 @@ namespace FUNTIK.Migrations
                     b.Property<int>("SugarPercent")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -126,7 +149,6 @@ namespace FUNTIK.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Contacts")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
@@ -343,19 +365,41 @@ namespace FUNTIK.Migrations
 
             modelBuilder.Entity("FUNTIK.Models.Ingredient", b =>
                 {
+                    b.HasOne("FUNTIK.Models.MetaIngredient", "MetaIngredient")
+                        .WithMany("Ingredients")
+                        .HasForeignKey("MetaIngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FUNTIK.Models.Recipe", "Recipe")
                         .WithMany("Ingredients")
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MetaIngredient");
 
                     b.Navigation("Recipe");
                 });
 
+            modelBuilder.Entity("FUNTIK.Models.MetaIngredient", b =>
+                {
+                    b.HasOne("FUNTIK.Models.User", "User")
+                        .WithMany("CustomIngredients")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("FUNTIK.Models.Recipe", b =>
                 {
-                    b.HasOne("FUNTIK.Models.User", null)
+                    b.HasOne("FUNTIK.Models.User", "User")
                         .WithMany("Recipes")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -409,6 +453,11 @@ namespace FUNTIK.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("FUNTIK.Models.MetaIngredient", b =>
+                {
+                    b.Navigation("Ingredients");
+                });
+
             modelBuilder.Entity("FUNTIK.Models.Recipe", b =>
                 {
                     b.Navigation("Ingredients");
@@ -416,6 +465,8 @@ namespace FUNTIK.Migrations
 
             modelBuilder.Entity("FUNTIK.Models.User", b =>
                 {
+                    b.Navigation("CustomIngredients");
+
                     b.Navigation("Recipes");
                 });
 #pragma warning restore 612, 618

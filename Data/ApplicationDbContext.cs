@@ -15,6 +15,7 @@ public class ApplicationDbContext : IdentityDbContext
         //Database.EnsureCreated();
     }
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -28,4 +29,5 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Ingredient> Ingredients { get; set; } = null!;
     public DbSet<Recipe> Recipes { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
+    public DbSet<MetaIngredient> MetaIngredients { get; set; } = null!;
 }
