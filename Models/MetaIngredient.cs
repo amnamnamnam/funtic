@@ -7,7 +7,7 @@ namespace FUNTIK.Models
         public int Id { get; set; }
         public string? Name { get; set; }
         public IngredientType Type { get; set; }
-        public User? User { get; set; }
+        public UserDa? User { get; set; }
         public int? UserId { get; set; }
         public List<Ingredient> Ingredients { get; set; } = new();
 

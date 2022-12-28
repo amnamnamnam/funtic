@@ -7,6 +7,7 @@ using FUNTIK.Data;
 using Microsoft.AspNetCore.Authorization;
 using FUNTIK.Authorization;
 using FUNTIK.Models.Repositories;
+using FUNTIK.GRASP;
 
 // snippet3 used in next define
 #region snippet4  
@@ -19,10 +20,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+
 builder.Services.AddDefaultIdentity<IdentityUser>(
     options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 #endregion
 
 builder.Services.AddRazorPages();
@@ -51,8 +54,9 @@ builder.Services.AddScoped<IMetaIngredientRepository, MetaIngredientRepository>(
 
 builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
-
 builder.Services.AddScoped<IUserRepository, UserRepository>(); 
+
+builder.Services.AddSingleton<ISessionHelper, SessionHelper>();
     
 
 

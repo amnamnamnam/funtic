@@ -4,12 +4,29 @@ main_href {
     font-size: 40px;
 }
 
+
+.topbar {
+    left: 0px;
+    top: 0px;
+    z-index: 500;
+    position: fixed;
+    height: 6%;
+    width: 100%
+}
+
 h1 {
     font-family: Helvetica, Arial, sans-serif;
     color: #000000;
     font-size: 40px;
     font-weight: normal; 
     text-align: center 
+}
+
+h2 {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #000000;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .main_href {
@@ -39,10 +56,12 @@ h1 {
 
 .compound {
     width: 15%;
-    height: 100%;
+    height : 90%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
     color: #707070;
     right: 0;
-    top: 0;
+    top: 6%;
     position: fixed;
     background-color: #82C777;
 }
@@ -77,16 +96,14 @@ a {
 
 .toolbar {
     position: fixed;
+    z-index: 400;
     text-align: center;
-    font-size: 176%;
     color: #000000;
-    top: 0px;
+    top: 6%;
     left: 0px;
-    z-index: 9999;
     border-bottom: 1px solid #ffffff;
     width: 85%;
-    background: rgb(255, 255, 255);
-    height: 150px;
+    height: 20%;
 }
 
 .toolbar_inner {
@@ -107,7 +124,7 @@ a {
         text-decoration: none;
         font-size: 30px;
         width: 16.5%;
-        padding-top: 2%;
+
         padding-bottom: 2%;
     }
 
@@ -122,40 +139,6 @@ a {
     width: 85%;
 }
 
-.slider {
-    -webkit-appearance: none;
-    width: 45%;
-    height: 25px;
-    background: #d3d3d3;
-    margin-top: 5%;
-    margin-left: 60.40%;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-}
-
-    .slider:hover {
-        opacity: 1;
-    }
-
-    .slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 23px;
-        height: 42px;
-        border: 0;
-        background: url('slider.png');
-        cursor: pointer;
-    }
-
-    .slider::-moz-range-thumb {
-        width: 23px;
-        height: 42px;
-        border: 0;
-        background: url('slider.png');
-        cursor: pointer;
-    }
 
 .percents {
     width: 85%;

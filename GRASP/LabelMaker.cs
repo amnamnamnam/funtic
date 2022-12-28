@@ -11,9 +11,9 @@ namespace FUNTIK.GRASP
     public class LabelMaker
     {
         private Recipe recipe; 
-        private User user;
+        private UserDa user;
 
-        public LabelMaker(Recipe recipe, User user)
+        public LabelMaker(Recipe recipe, UserDa user)
         {
             this.recipe = recipe;
             this.user = user;

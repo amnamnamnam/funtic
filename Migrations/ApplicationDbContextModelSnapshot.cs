@@ -108,13 +108,7 @@ namespace FUNTIK.Migrations
                     b.Property<int>("CacaoPercent")
                         .HasColumnType("integer");
 
-                    b.Property<int>("FatPercent")
-                        .HasColumnType("integer");
-
                     b.Property<int>("Mass")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MilkPersent")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -127,9 +121,6 @@ namespace FUNTIK.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("SugarPercent")
-                        .HasColumnType("integer");
-
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
@@ -140,7 +131,7 @@ namespace FUNTIK.Migrations
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("FUNTIK.Models.User", b =>
+            modelBuilder.Entity("FUNTIK.Models.UserDa", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -384,7 +375,7 @@ namespace FUNTIK.Migrations
 
             modelBuilder.Entity("FUNTIK.Models.MetaIngredient", b =>
                 {
-                    b.HasOne("FUNTIK.Models.User", "User")
+                    b.HasOne("FUNTIK.Models.UserDa", "User")
                         .WithMany("CustomIngredients")
                         .HasForeignKey("UserId");
 
@@ -393,7 +384,7 @@ namespace FUNTIK.Migrations
 
             modelBuilder.Entity("FUNTIK.Models.Recipe", b =>
                 {
-                    b.HasOne("FUNTIK.Models.User", "User")
+                    b.HasOne("FUNTIK.Models.UserDa", "User")
                         .WithMany("Recipes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -463,7 +454,7 @@ namespace FUNTIK.Migrations
                     b.Navigation("Ingredients");
                 });
 
-            modelBuilder.Entity("FUNTIK.Models.User", b =>
+            modelBuilder.Entity("FUNTIK.Models.UserDa", b =>
                 {
                     b.Navigation("CustomIngredients");
 

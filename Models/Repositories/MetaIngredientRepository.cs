@@ -12,12 +12,14 @@ namespace FUNTIK.Models.Repositories
         public void Create(MetaIngredient ingredient);
         public void Update(MetaIngredient ingredient);
         public void Delete(MetaIngredient ingredient);
+        public MetaIngredient? FindByName(string name);
         public List<MetaIngredient> FindBase();
         public List<MetaIngredient> FindNuts();
         public List<MetaIngredient> FindImpregnations();
         public List<MetaIngredient> FindInfusions();
         public List<MetaIngredient> FindCandedFruits();
         public List<MetaIngredient> FindCustom();
+        public List<MetaIngredient> GetAll();
     }
 
     public class MetaIngredientRepository : IMetaIngredientRepository
@@ -35,9 +37,13 @@ namespace FUNTIK.Models.Repositories
         }
 
         public void Delete(MetaIngredient ingredient)
-        {
-            context.MetaIngredients.Remove(ingredient);
+        {            context.MetaIngredients.Remove(ingredient);
             context.SaveChanges();
+        }
+
+        public MetaIngredient? FindByName(string name)
+        {
+            return context.MetaIngredients.FirstOrDefault(i => i.Name == name);
         }
 
         public List<MetaIngredient> FindBase()
@@ -68,6 +74,11 @@ namespace FUNTIK.Models.Repositories
         public List<MetaIngredient> FindCustom()
         {
             return context.MetaIngredients.Where(i => i.Type == IngredientType.Custom && i.UserId == null).ToList();
+        }
+
+        public List<MetaIngredient> GetAll()
+        {
+            return context.MetaIngredients.Where(i => i.UserId == null).ToList();
         }
 
         public void Update(MetaIngredient ingredient)

@@ -7,14 +7,14 @@ namespace FUNTIK.Models
         public int Id { get; set; }
         public string? Name { get; set; }
 
-        public User User { get; set; }
+        public UserDa User { get; set; }
         public int UserId { get; set; }
 
         public int Mass { get; set; }
         public int CacaoPercent { get; set; }
-        public int FatPercent { get; set; }
+        /*public int FatPercent { get; set; }
         public int SugarPercent { get; set; }
-        public int MilkPersent { get; set; }
+        public int MilkPersent { get; set; }*/
 
         public List<Ingredient> Ingredients { get; set; } = new();
         public byte[]? Photo { get; set; }

@@ -5,14 +5,14 @@ using System.Xml.Linq;
 namespace FUNTIK.Models
 {
     [Index("Email", IsUnique = true)]
-    public class User
+    public class UserDa
     {
         public int  Id { get; set; }
         public string Email { get; set; }
  
         public List<Recipe> Recipes { get; set; } = new();
 
-        public User(string email)
+        public UserDa(string email)
         {
             Email = email;
         }

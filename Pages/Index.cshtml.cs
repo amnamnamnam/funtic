@@ -23,6 +23,6 @@ public class IndexModel : PageModel
         if (Name == null)
             return;
         if (_userRepository.FindUserByEmail(Name) == null)
-            _userRepository.Create(new User(Name));
+            _userRepository.Create(new UserDa(Name));
     }
 }

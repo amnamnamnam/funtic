@@ -12,5 +12,104 @@
 	<link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 <body>
-	<h1>Добавьте новый ингредиент</h1>
+    <h1>Редактировать ингредиенты</h1>
+
+	<h1>Добавить новый ингредиент</h1>
+
+            <form method="post">
+                <tr>
+                    <td>
+                        <input id="NewMetaIngredientName" name="name" type="text" maxlength="20" />
+                    </td>
+                    <td>
+                        <label for="NewMetaIngredientName">Введите название ингредиента</label>
+                    </td>
+                </tr>
+        <p>
+            
+        </p>
+            <tr>
+                <td>
+                    <label> Выберите тип ингредиента: </label>
+                </td>
+            </tr>
+            <tr>
+            <p>
+
+            </p>
+                <td>
+                    <input name="type" type="radio" value=1 />
+                </td>
+                <td>
+                    <span>Орехи</span> <br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input name="type" type="radio" value=4 />
+                </td>
+                <td>
+                    <span>Цукаты</span> <br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input name="type" type="radio" value=3 />
+                </td>
+                <td>
+                    <span>Пропитки</span> <br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input name="type" type="radio" value=2 />
+                </td>
+                <td>
+                    <span>Начинки</span> <br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input name="type" type="radio" value=5 />
+                </td>
+                <td>
+                    <span>Другое</span> <br />
+                </td>
+            </tr>
+            
+                <p>
+            <input type="submit" value="Создать" asp-page-handler="Create" />
+                </p>
+    </form>
+
+    <h1>Удалить ингредиенты</h1>
+
+    <form method="post">
+        <table>
+            <tr>
+                <td>
+                    <label> Выберите ингредиенты для удаления: </label>
+                </td>
+            </tr>
+            <tr>
+            <p>
+
+            </p>
+            @foreach (var ingredient in Model.Ingredients)
+            {
+                <tr>
+                    <td>
+                        <input id="@ingredient.Name" type="checkbox" name="Ingredient" value="@ingredient.Name" checked="checked" />
+                    </td>
+                    <td>
+                        <label for="@ingredient.Name">@ingredient.Name</label>
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+        <input type="submit" value="Submit" asp-page-handler="Delete" />
+    </form>
+    <h2>@Model.Message</h2>
 </body>
+</html>

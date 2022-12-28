@@ -28,6 +28,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Contact> Contact { get; set; }
     public DbSet<Ingredient> Ingredients { get; set; } = null!;
     public DbSet<Recipe> Recipes { get; set; } = null!;
-    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<UserDa> Users { get; set; } = null!;
     public DbSet<MetaIngredient> MetaIngredients { get; set; } = null!;
 }
