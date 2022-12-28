@@ -13,7 +13,7 @@ using System.Reflection;
 namespace FUNTIK.Pages
 {
 
-    public class NewRecipeModel : PageModel
+    public class KTSNewRecipeModel : PageModel
     {
         public string Message { get; set; }
 
@@ -32,7 +32,7 @@ namespace FUNTIK.Pages
         public IRecipeMaker RecipeMaker;
 
 
-        public NewRecipeModel(IEnumerable<IRecipeMaker> RecipeMakers, IMetaIngredientRepository metaIngredientRepository, IUserRepository userRepository, ISessionHelper sessionHelper)
+        public KTSNewRecipeModel(IEnumerable<IRecipeMaker> RecipeMakers, IMetaIngredientRepository metaIngredientRepository, IUserRepository userRepository, ISessionHelper sessionHelper)
         {
             Message = "";
             this.metaIngredientRepository = metaIngredientRepository;
@@ -44,7 +44,7 @@ namespace FUNTIK.Pages
             Infusions = metaIngredientRepository.FindInfusions();
             CandedFruits = metaIngredientRepository.FindCandedFruits();
             Custom = metaIngredientRepository.FindCustom();
-            RecipeMaker = RecipeMakers.First();
+            RecipeMaker = RecipeMakers.ElementAt(1);
             RecipeMaker.GetBaseMetaIngredients(Base);
             //UserDa = userRepository.FindUserByEmail(User.Identity.Name);
             MessageDict = new()
@@ -70,7 +70,7 @@ namespace FUNTIK.Pages
         public void RestoreSession()
         {
             var name = User.Identity.Name;
-            var model = (NewRecipeModel)sessionHelper.GetItem(name);
+            var model = (KTSNewRecipeModel)sessionHelper.GetItem(name);
             if (model != null)
             {
                 CopyFields(model, this);
@@ -96,19 +96,16 @@ namespace FUNTIK.Pages
 
         public void OnPostBase(List<int> baseParam)
         {
-            /*PictureSender sender = new PictureSender();
-            sender.Share("hhh", "work");*/
-
             var baseDict = new Dictionary<string, int>()
             {
                 ["mass"] = baseParam[0], ["cocoaP"] = baseParam[1],
                 ["fatsP"] = baseParam[2], ["sugarP"] = baseParam[3],
-                ["milkP"] = baseParam[4]
+                ["milkP"] = baseParam[4], ["cocoaDustP"] = baseParam[5]
             };
             RestoreSession();
             RecipeMaker.UpdateRecipeBase(baseDict);
             MessageDict[IngredientType.Base] = $"{RecipeMaker.Recipe.Mass} " +
-                    $"{baseParam[4]} {baseParam[1]} {baseParam[3]} {baseParam[2]}";
+                    $"{baseParam[4]} {baseParam[1]} {baseParam[3]} {baseParam[2]} {baseParam[5]}";
             //Message = "Вы выбрали: " + String.Join("\n", MessageDict.Select(x => x.Value).ToArray());
             RewriteMessage();
 			var name = User.Identity.Name;
@@ -145,6 +142,7 @@ namespace FUNTIK.Pages
                     $"{choco_base[1]} гр какао;<br/>" +
                     $"{choco_base[3]} гр сахара;<br/>" +
                     $"{choco_base[2]} гр какао-масла.<br/>" +
+                    $"{choco_base[5]} гр какао-масла.<br/>" +
                     $"<br/>";
 
             foreach (var type in MessageDict.Keys)
@@ -173,7 +171,7 @@ namespace FUNTIK.Pages
             sessionHelper.AddRenewItem(name, this);
         }
 
-        public IActionResult OnPostFinal()
+        public void OnPostFinal()
         {
             RestoreSession();
             RecipeMaker.CompileRecipe();
@@ -181,7 +179,6 @@ namespace FUNTIK.Pages
             var lablstr = LM.CreateLabelString();
             var label = LM.CreateLabel(lablstr);
             LM.SaveImage(label);
-            return Redirect("https://localhost:44396/EditFile");
         }
 
         public void OnGet()

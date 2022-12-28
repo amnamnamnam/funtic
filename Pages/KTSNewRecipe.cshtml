@@ -1,7 +1,7 @@
 @page
-@model FUNTIK.Pages.NewRecipeModel
+@model FUNTIK.Pages.KTSNewRecipeModel
 @{
-    ViewData["Title"] = "NewRecipe";
+    ViewData["Title"] = "KrasnayaTsenaNewRecipe";
 }
 <!doctype html>
 <html>
@@ -27,9 +27,6 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/NewRecipe">New Recipe</a>
-                            </li>
-                            <li class="KTS_href">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/KTSNewRecipe">Красная цена</a>
                             </li>
                         </ul>
                         <partial name="_LoginPartial" />
@@ -74,22 +71,26 @@
                     </p>
                     <p>
                         <label>Содержание какао в процентах:</label><br />
-                        <input id="cocoa" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
+                        <input id="cocoa" type="number" name="baseParam" min="0" max="100" value="0" step="any" />
                     </p>
                     <p>
-                        <label>Содержание какао-масла в процентах:</label><br />
-                        <input id="fat" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
+                        <label>Содержание пальмового масла в процентах:</label><br />
+                        <input id="fat" type="number" name="baseParam" min="0" max="100" value="0" step="any" />
                     </p>
                     <p>
                         <label>Содержание сахара в процентах:</label><br />
-                        <input id="sugar" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
+                        <input id="sugar" type="number" name="baseParam" min="0" max="100" value="0" step="any" />
                     </p>
                     <p>
-                        <label>Содержание молока в процентах:</label><br />
-                        <input id="milk" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
+                        <label>Содержание сухого молока в процентах:</label><br />
+                        <input id="milk" type="number" name="baseParam" min="0" max="100" value="0" step="any" />
+                    </p>
+                    <p>
+                        <label>Содержание какао-порошка в процентах:</label><br />
+                        <input id="milk" type="number" name="baseParam" min="0" max="100" value="0" step="any" />
                     </p>
 
-                    <input type="submit" asp-page-handler="Base" id="send_base" value="Отправить" disabled="" />
+                    <input type="submit" asp-page-handler="Base" id="send2" value="Отправить" />
                 </form>
 
             </div>

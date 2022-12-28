@@ -1,0 +1,21 @@
+﻿@page "/editfile"
+ @model EditFileModel
+ @{
+ }
+ <form enctype="multipart/form-data" method="post">
+     <table class="table">
+        <tr>
+            <td></td>
+            <td>FileName</td>
+            <td>Preview</td>
+            <td>Downlaod</td>
+        </tr>
+          <tr>
+              <td>Folder</td>
+             <td>
+             <td></td>
+                 <a download href="@Url.Page("EditFile", "DownloadFileFromFolder", new { fileName = Model.FileUpload.FolderFileName})">Download From Folder</a>
+             </td>
+         </tr> 
+     </table> 
+ </form>

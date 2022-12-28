@@ -10,7 +10,7 @@ main_href {
     top: 0px;
     z-index: 500;
     position: fixed;
-    height: 6%;
+    height: 7.5%;
     width: 100%
 }
 
@@ -53,15 +53,20 @@ h2 {
     text-align: center;
 
 }
+.KTS_href {
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #EF1702;
+    color: white;
+}
 
 .compound {
     width: 15%;
-    height : 90%;
+    height : 93%;
     overflow-y: scroll;
     scroll-behavior: smooth;
     color: #707070;
     right: 0;
-    top: 6%;
+    top: 7%;
     position: fixed;
     background-color: #82C777;
 }
@@ -99,11 +104,11 @@ a {
     z-index: 400;
     text-align: center;
     color: #000000;
-    top: 6%;
+    top: 7.5%;
     left: 0px;
     border-bottom: 1px solid #ffffff;
     width: 85%;
-    height: 20%;
+    height: 0%;
 }
 
 .toolbar_inner {

@@ -4,10 +4,12 @@ namespace FUNTIK.GRASP
 {
     public interface IRecipeMaker
     {
+        public Recipe Recipe { get; set; }
+        public void GetBaseMetaIngredients(List<MetaIngredient> baseMetaIngredients);
         public void UpdateRecipeBase(Dictionary<string, int> baseParams);
         public void AddIngredients(List<Ingredient> ingredients);
         public bool DeleteIngredient(Ingredient ingredient);
-
+        public void CompileRecipe();
     }
 
     public class KrasnayaTsenaRecipeMaker : IRecipeMaker
@@ -24,9 +26,9 @@ namespace FUNTIK.GRASP
         public Ingredient cocoaDustIng;
         public Ingredient cocoaIng;
 
-        public Recipe Recipe = new();
+        public Recipe Recipe { get; set;} = new Recipe();
 
-        public KrasnayaTsenaRecipeMaker(List<MetaIngredient> baseMetaIngredients)
+        public void GetBaseMetaIngredients(List<MetaIngredient> baseMetaIngredients)
         {
             dryMilk = baseMetaIngredients.First(x => x.Name == "Молоко сухое");
             cocoa = baseMetaIngredients.First(x => x.Name == "Какао тёртое");
@@ -48,7 +50,7 @@ namespace FUNTIK.GRASP
             var cocoaP = baseParams["cocoaP"];
             var fatsP = baseParams["fatsP"];
             var sugarP = baseParams["sugarP"];
-            var milkP = baseParams["dryMilkP"];
+            var milkP = baseParams["milkP"];
             var cocoaDustP = baseParams["cocoaDustP"];
 
             Recipe.Mass = mass;
@@ -59,13 +61,16 @@ namespace FUNTIK.GRASP
             cocoaIng.WeightInGrams = cocoaP * mass / 100;
             sugarIng.WeightInGrams = sugarP * mass / 100;
             dryMilkIng.WeightInGrams = milkP * mass / 100;
-            AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, dryMilkIng, cocoaDustIng });
+            //AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, dryMilkIng, cocoaDustIng });
 
         }
 
         public void AddIngredients(List<Ingredient> ingredients)
         {
-            Recipe.Ingredients = Recipe.Ingredients.Concat(ingredients).ToList();
+            if (ingredients.Count == 0)
+                return;
+            var type = ingredients[0].MetaIngredient.Type;
+            Recipe.Ingredients = Recipe.Ingredients.Where(x => x.MetaIngredient.Type != type).Concat(ingredients).ToList();
         }
 
         public void AddIngredient(Ingredient ingredient)
@@ -82,6 +87,13 @@ namespace FUNTIK.GRASP
             }
             return false;
         }
+
+
+
+        public void CompileRecipe()
+        {
+            AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, dryMilkIng, cocoaDustIng });
+        }
     }
 
 
@@ -97,9 +109,9 @@ namespace FUNTIK.GRASP
         public Ingredient addedFatsIng;
         public Ingredient sugarIng;
 
-        public Recipe Recipe = new();
+        public Recipe Recipe { get; set; } = new();
 
-        public RecipeMaker(List<MetaIngredient> baseMetaIngredients)
+        public void GetBaseMetaIngredients(List<MetaIngredient> baseMetaIngredients)
         {
             milk = baseMetaIngredients.First(x => x.Name == "Молоко");
             cocoa = baseMetaIngredients.First(x => x.Name == "Какао тёртое");
@@ -128,13 +140,15 @@ namespace FUNTIK.GRASP
             cocoaIng.WeightInGrams = cocoaP * mass / 100;
             sugarIng.WeightInGrams = sugarP * mass / 100;
             milkIng.WeightInGrams = milkP * mass / 100;
-            AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, milkIng });
-
+            //AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, milkIng });
         }
-        
+
         public void AddIngredients(List<Ingredient> ingredients)
         {
-            Recipe.Ingredients = Recipe.Ingredients.Concat(ingredients).ToList();
+            if (ingredients.Count == 0)
+                return;
+            var type = ingredients[0].MetaIngredient.Type;
+            Recipe.Ingredients = Recipe.Ingredients.Where(x => x.MetaIngredient.Type != type).Concat(ingredients).ToList();
         }
 
         public void AddIngredient(Ingredient ingredient)
@@ -150,6 +164,11 @@ namespace FUNTIK.GRASP
                 return true;
             }
             return false;
+        }
+
+        public void CompileRecipe()
+        {
+            AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, milkIng });
         }
     }
 }
