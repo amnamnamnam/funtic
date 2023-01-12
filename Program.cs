@@ -66,19 +66,21 @@ builder.Services.AddScoped<IRecipeMaker, KrasnayaTsenaRecipeMaker>();
 
 var app = builder.Build();
 
-
-using (var scope = app.Services.CreateScope())
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope())
     {
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ApplicationDbContext>();
-    context.Database.Migrate();
-    // requires using Microsoft.Extensions.Configuration;
-    // Set password with the Secret Manager tool.
-    // dotnet user-secrets set SeedUserPW <pw>
+        var services = scope.ServiceProvider;
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        context.Database.Migrate();
+        // requires using Microsoft.Extensions.Configuration;
+        // Set password with the Secret Manager tool.
+        // dotnet user-secrets set SeedUserPW <pw>
 
-    var testUserPw = builder.Configuration.GetValue<string>("SeedUserPW");
+        var testUserPw = builder.Configuration.GetValue<string>("SeedUserPW");
 
-    await SeedData.Initialize(services, testUserPw);
+        await SeedData.Initialize(services, testUserPw);
+    }
 }
 
 #endregion

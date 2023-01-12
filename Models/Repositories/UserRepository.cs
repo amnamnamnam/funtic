@@ -9,6 +9,7 @@ namespace FUNTIK.Models.Repositories
         public void Delete(UserDa user);
         public UserDa? Find(Func<UserDa, bool> func);
         public UserDa? FindUserByEmail(string email);
+        public UserDa? FindUserFullInfoByEmail(string email);
         public List<UserDa> FindAll(Func<UserDa, bool> func);
         public void Update(UserDa user);
     }
@@ -42,7 +43,7 @@ namespace FUNTIK.Models.Repositories
         
         public UserDa? FindUserFullInfoByEmail(string email)
         {
-            return context.Users.FirstOrDefault(i => i.Email == email);
+            return context.Users.Include(u => u.Recipes).FirstOrDefault(i => i.Email == email);
         }
 
         public UserDa? Find(Func<UserDa, bool> func)

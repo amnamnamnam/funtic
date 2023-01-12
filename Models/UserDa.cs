@@ -20,5 +20,5 @@ namespace FUNTIK.Models
         public List<MetaIngredient> CustomIngredients { get; set; } = new();
 
         public string? Contacts { get; set; }
-    }
+   }
 }

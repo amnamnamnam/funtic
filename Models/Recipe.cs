@@ -12,9 +12,6 @@ namespace FUNTIK.Models
 
         public int Mass { get; set; }
         public int CacaoPercent { get; set; }
-        /*public int FatPercent { get; set; }
-        public int SugarPercent { get; set; }
-        public int MilkPersent { get; set; }*/
 
         public List<Ingredient> Ingredients { get; set; } = new();
         public byte[]? Photo { get; set; }

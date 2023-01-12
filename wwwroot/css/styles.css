@@ -4,28 +4,24 @@ main_href {
     font-size: 40px;
 }
 
-
 .topbar {
     left: 0px;
     top: 0px;
-    z-index: 500;
-    position: fixed;
-    height: 7.5%;
-    width: 100%
+    width: 100%;
 }
 
 h1 {
     font-family: Helvetica, Arial, sans-serif;
     color: #000000;
     font-size: 40px;
-    font-weight: normal; 
-    text-align: center 
+    font-weight: normal;
+    text-align: center
 }
 
 h2 {
     font-family: Helvetica, Arial, sans-serif;
     color: #000000;
-    font-size: 25px;
+    font-size: 2vw;
     font-weight: bold;
 }
 
@@ -39,42 +35,47 @@ h2 {
 .main_href1 {
     width: 56%;
     border: 1px solid #333;
-
     margin-top: 5%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
 
-.recipes{
+.recipes {
     display: flex;
     flex-direction: column;
     -ms-flex-align: center;
     text-align: center;
-
 }
+
 .KTS_href {
     font-family: Helvetica, Arial, sans-serif;
     background-color: #EF1702;
     color: white;
 }
 
+.compound_send {
+    font-size: 1vw;
+}
+
 .compound {
-    width: 15%;
-    height : 93%;
+    width: 25%;
+    height: 93%;
     overflow-y: scroll;
     scroll-behavior: smooth;
     color: #707070;
     right: 0;
-    top: 7%;
     position: fixed;
     background-color: #82C777;
+    font-size: 1vw;
 }
 
 .main_window {
     scroll-behavior: smooth;
     overflow: auto;
     min-height: 200vh;
+    display: block;
+    position: relative
 }
 
 .new_recipe {
@@ -96,29 +97,23 @@ h2 {
 
 a {
     text-decoration: none;
-    color:black
+    color: black
 }
 
-.toolbar {
+.fixed_bar {
     position: fixed;
-    z-index: 400;
-    text-align: center;
-    color: #000000;
-    top: 7.5%;
-    left: 0px;
-    border-bottom: 1px solid #ffffff;
-    width: 85%;
-    height: 0%;
-}
-
-.toolbar_inner {
-    font-size: 40px;
-    padding: 10px;
+    width: 100%;
+    left: 0%;
+    top: 0%;
 }
 
 .topnav {
+    text-align: center;
+    color: #000000;
+    left: 0px;
     background-color: #333;
     overflow: hidden;
+    vertical-align: top;
 }
 
     /* Style the links inside the navigation bar */
@@ -127,10 +122,10 @@ a {
         color: #f2f2f2;
         text-align: center;
         text-decoration: none;
-        font-size: 30px;
+        font-size: 2vw;
         width: 16.5%;
-
         padding-bottom: 2%;
+        height: 100%
     }
 
         /* Change the color of links on hover */
@@ -140,16 +135,22 @@ a {
         }
 
 .base {
-    margin-top: 10%;
     width: 85%;
 }
-
 
 .percents {
     width: 85%;
     height: 1%;
 }
 
-.number{
+.number {
     width: 10%;
+}
+
+@media all and (orientation:landscape) {
+
+    #base {
+        padding-top: 160px;
+        margin-top: -160px;
+    }
 }

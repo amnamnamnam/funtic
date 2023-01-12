@@ -12,10 +12,7 @@
         </tr>
           <tr>
               <td>Folder</td>
-             <td>
-             <td></td>
-                 <a download href="@Url.Page("EditFile", "DownloadFileFromFolder", new { fileName = Model.FileUpload.FolderFileName})">Download From Folder</a>
-             </td>
+                <a download href="@Url.Page("EditFile", "DownloadFileFromFolder", new { recipeId = Model.recipeId})">Загрузить этикетку</a>
          </tr> 
      </table> 
  </form>

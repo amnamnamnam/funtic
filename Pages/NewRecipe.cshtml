@@ -11,39 +11,69 @@
     <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 <body>
-    <div class="topbar">
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-page="/Index">FUNTIK</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/MainPage">My Recipes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/NewRecipe">New Recipe</a>
-                            </li>
-                            <li class="KTS_href">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/KTSNewRecipe">Красная цена</a>
-                            </li>
-                        </ul>
-                        <partial name="_LoginPartial" />
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <div class="container">
-            <main role="main" class="pb-3">
-            </main>
-        </div>
-    </div>
+    @section Footer {}
     <div class="main_window">
-        <div class="toolbar">
+
+        <div class="topbar">
+            <header>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom">
+                    <div class="container">
+                        <a class="navbar-brand" asp-area="" asp-page="/Index">FUNTIK</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/MainPage">My Recipes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/NewRecipe">New Recipe</a>
+                                </li>
+                            </ul>
+                            <partial name="_LoginPartial" />
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        </div>
+
+        <div class="topnav">
+            <a href="#base">Основа</a>
+            <a href="#nuts">Орехи</a>
+            <a href="#candied_fruits">Цукаты</a>
+            <a href="#infusion">Пропитки</a>
+            <a href="#impregnations">Начинки</a>
+            <a href="#other">Другое</a>
+        </div>
+
+        <div class="fixed_bar">
+            <div class="topbar">
+                <header>
+                    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom">
+                        <div class="container">
+                            <a class="navbar-brand" asp-area="" asp-page="/Index">FUNTIK</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                                <ul class="navbar-nav flex-grow-1">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/MainPage">My Recipes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/NewRecipe">New Recipe</a>
+                                    </li>
+                                </ul>
+                                <partial name="_LoginPartial" />
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+            </div>
+
             <div class="topnav">
                 <a href="#base">Основа</a>
                 <a href="#nuts">Орехи</a>
@@ -52,22 +82,31 @@
                 <a href="#impregnations">Начинки</a>
                 <a href="#other">Другое</a>
             </div>
-        </div>
 
-        <div class="compound">
-            <div class="compoundtext">
-                <p>@Html.Raw(@Model.Message)</p>
+            <div class="compound">
+                <div class="compoundtext">
+                    <p>@Html.Raw(@Model.Message)</p>
 
-                <form method="post">
-                    <input type="submit" asp-page-handler="Final" id="send" value="Отправить" />
-                </form>
+                    <form method="post">
+                        <input type="submit" asp-page-handler="Final" id="send" value="Отправить" />
+                    </form>
+                </div>
             </div>
         </div>
 
+        <br>
+        <br>
+
         <div class="base">
+
+            <label><h2 id="base">Основа:</h2></label><br />
+
             <div class=percents>
-                
                 <form method="post" >
+                    <p>
+                        <label>Название вашего рецепта:</label><br />
+                        <input id="recipename" type="text" name="baseParam0" />
+                    </p>
                     <p>
                         <label>Масса основы в граммах:</label><br />
                         <input id="mass" type="number" name="baseParam" min="0" value="0" step="any"/>
@@ -97,7 +136,8 @@
         <br />
         <form method="post">
             <table>
-                <label><h2>Орехи:</h2></label><br />
+                <label><h2 id="nuts">Орехи:</h2></label>
+                <br />
                 @foreach (var nut in Model.Nuts)
                 {
                     <tr>

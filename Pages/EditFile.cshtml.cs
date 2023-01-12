@@ -8,31 +8,32 @@ namespace FUNTIK.Pages;
 
 public class EditFileModel : PageModel
 {
+    public int recipeId;
     
     private readonly IWebHostEnvironment _hostenvironment;
-    public EditFileModel(IWebHostEnvironment webHostEnvironment)
+    private IRecipeRepository recipeRepository;
+    public EditFileModel(IWebHostEnvironment webHostEnvironment, IRecipeRepository recipeRepository)
     {
         _hostenvironment = webHostEnvironment;
+        this.recipeRepository = recipeRepository;
     }
 
     [BindProperty]
     public FileViewModel FileUpload { get; set; }
     public void OnGet()
     {
-
         FileUpload = new FileViewModel();
         FileUpload.FolderFileName = "success1.png";
         FileUpload.FolderFilePath = "succsess1.png";
+        recipeId = int.Parse(Request.Query["RecipeId"]);
+        //v ar a = OnGetDownloadFileFromFolder();
     }
-    public FileResult OnGetDownloadFileFromFolder(string fileName)
+
+
+    public FileResult OnGetDownloadFileFromFolder(int recipeId)
     {
-        //Build the File Path.
-        string path = "Labels/" + fileName;
-        //Read the File data into Byte Array.
-        byte[] bytes = System.IO.File.ReadAllBytes(@"D:\Funticcc\Labels\succsess1.png");
-        //D:\Funticcc\Labels\succsess1.png
-        //Send the File to Download.
-        return File(bytes, "application/octet-stream", fileName);
+        byte[] bytes = recipeRepository.Find(x => x.Id == recipeId).Photo;
+        return File(bytes, "application/octet-stream", "ShockoRecipe.png");
     }
 }
 

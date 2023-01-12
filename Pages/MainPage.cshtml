@@ -1,7 +1,7 @@
 
 @page
 
-@model FUNTIK.Pages.Contacts.IndexModel
+@model FUNTIK.Pages.MainPageModel
 @{
 	ViewData["Title"] = "MainPage";
 }
@@ -25,7 +25,15 @@
 			<table class="table">
             
             <tbody>
-        @foreach (var item in Model.Recipe) 
+		    @foreach (var recipe in Model.Recipes)
+            {
+                <form method="post">
+                <button name="recipe" type="submit" value=@recipe.Id>Удалить @recipe.Name</button>
+                </form>
+            }
+            </tbody>
+        </table>
+		        @foreach (var item in Model.Recipes) 
                 {
                 <tr>
                     <td>
@@ -33,10 +41,9 @@
                     </td>
                     </tr>
                 }
-            </tbody>
-        </table>
 
 		</div>
 	</div>
+
 </body>
 </html>

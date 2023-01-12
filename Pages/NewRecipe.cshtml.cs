@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FUNTIK.Models;
@@ -26,56 +25,36 @@ namespace FUNTIK.Pages
         public List<MetaIngredient> Custom { get; set; }
         public UserDa UserDa { get; set; }
         public Dictionary<IngredientType, Tuple<List<MetaIngredient>, List<Ingredient>>> TypeDict { get; set; }
-        private readonly IMetaIngredientRepository metaIngredientRepository;
-        private readonly IUserRepository userRepository;
+        private IMetaIngredientRepository metaIngredientRepository;
+        private IUserRepository userRepository;
         private readonly ISessionHelper sessionHelper;
         public IRecipeMaker RecipeMaker;
+        public IRecipeRepository RecipeRepository;
 
-
-        public NewRecipeModel(IEnumerable<IRecipeMaker> RecipeMakers, IMetaIngredientRepository metaIngredientRepository, IUserRepository userRepository, ISessionHelper sessionHelper)
+        public NewRecipeModel(IEnumerable<IRecipeMaker> RecipeMakers, IMetaIngredientRepository metaIngredientRepository, IUserRepository userRepository, ISessionHelper sessionHelper, IRecipeRepository recipeRepository)
         {
             Message = "";
             this.metaIngredientRepository = metaIngredientRepository;
             this.userRepository = userRepository;
             this.sessionHelper = sessionHelper;
-            Base = metaIngredientRepository.FindBase();
-            Nuts = metaIngredientRepository.FindNuts();
-            Impregnations = metaIngredientRepository.FindImpregnations();
-            Infusions = metaIngredientRepository.FindInfusions();
-            CandedFruits = metaIngredientRepository.FindCandedFruits();
-            Custom = metaIngredientRepository.FindCustom();
+            this.RecipeRepository = recipeRepository;
             RecipeMaker = RecipeMakers.First();
-            RecipeMaker.GetBaseMetaIngredients(Base);
-            //UserDa = userRepository.FindUserByEmail(User.Identity.Name);
-            MessageDict = new()
-            {
-                [IngredientType.Base] = "",
-                [IngredientType.Nut] = "",
-                [IngredientType.CandedFruit] = "",
-                [IngredientType.Infusion] = "",
-                [IngredientType.Impregnation] = "",
-                [IngredientType.Custom] = ""
-            };
-
-            TypeDict = new Dictionary<IngredientType, Tuple<List<MetaIngredient>, List<Ingredient>>>() 
-            {
-                [IngredientType.Nut] = Tuple.Create(Nuts, new List<Ingredient>()),
-                [IngredientType.Impregnation] = Tuple.Create(Impregnations, new List<Ingredient>()),
-                [IngredientType.Infusion] = Tuple.Create(Infusions, new List<Ingredient>()),
-                [IngredientType.Custom] = Tuple.Create(Custom, new List<Ingredient>()),
-                [IngredientType.CandedFruit] = Tuple.Create(CandedFruits, new List<Ingredient>())
-            };
         }
 
         public void RestoreSession()
         {
             var name = User.Identity.Name;
+            var tmpRR = RecipeRepository;
+            var tmpMR = metaIngredientRepository;
+            var tmpUR = userRepository;
             var model = (NewRecipeModel)sessionHelper.GetItem(name);
             if (model != null)
             {
                 CopyFields(model, this);
             }
-            
+            RecipeRepository = tmpRR;
+            metaIngredientRepository = tmpMR;
+            userRepository = tmpUR;
         }
 
         public static void CopyFields<T>(T source, T destination)
@@ -94,7 +73,7 @@ namespace FUNTIK.Pages
 
         }
 
-        public void OnPostBase(List<int> baseParam)
+        public void OnPostBase(string baseParam0, List<int> baseParam)
         {
             /*PictureSender sender = new PictureSender();
             sender.Share("hhh", "work");*/
@@ -105,6 +84,7 @@ namespace FUNTIK.Pages
                 ["fatsP"] = baseParam[2], ["sugarP"] = baseParam[3],
                 ["milkP"] = baseParam[4]
             };
+
             RestoreSession();
             RecipeMaker.UpdateRecipeBase(baseDict);
             MessageDict[IngredientType.Base] = $"{RecipeMaker.Recipe.Mass} " +
@@ -112,6 +92,7 @@ namespace FUNTIK.Pages
             //Message = "Вы выбрали: " + String.Join("\n", MessageDict.Select(x => x.Value).ToArray());
             RewriteMessage();
 			var name = User.Identity.Name;
+            RecipeMaker.Recipe.Name = baseParam0;
             sessionHelper.AddRenewItem(name, this);
         }
 
@@ -153,7 +134,15 @@ namespace FUNTIK.Pages
 					Message += $"{TypesDict[type]}:<br/>" + MessageDict[type] + "<br/><br/>";
             }
         }
-    
+        
+         public void RenewRecipe()
+        {
+            var MetaIngredients = metaIngredientRepository.GetAll();
+            for (var i = 0; i < RecipeMaker.Recipe.Ingredients.Count; i++)
+            {
+                RecipeMaker.Recipe.Ingredients[i].MetaIngredient = MetaIngredients.Find(x => x.Id == RecipeMaker.Recipe.Ingredients[i].MetaIngredient.Id);
+            }
+        }
 
          public void OnPostIngredients(List<string> ingredient)
         {
@@ -176,23 +165,55 @@ namespace FUNTIK.Pages
         public IActionResult OnPostFinal()
         {
             RestoreSession();
+            var name = User.Identity.Name;
+            UserDa = userRepository.FindUserByEmail(name);
+            RecipeMaker.Recipe.User = UserDa;
+            RecipeMaker.Recipe.ShelfLife = "30 суток";
             RecipeMaker.CompileRecipe();
-            var LM = new LabelMaker(RecipeMaker.Recipe, new UserDa("tt"));
+            UserDa.Contacts = "vk: chokolate_miass";
+            var LM = new LabelMaker(RecipeMaker.Recipe, UserDa, RecipeRepository);
             var lablstr = LM.CreateLabelString();
             var label = LM.CreateLabel(lablstr);
+            RenewRecipe();
+            RecipeRepository.Create(RecipeMaker.Recipe);
             LM.SaveImage(label);
-            return Redirect("https://localhost:44396/EditFile");
+            return Redirect(String.Format("~/EditFile?RecipeId={0}", RecipeMaker.Recipe.Id));
         }
 
         public void OnGet()
         {
             var name = User.Identity.Name;
             sessionHelper.ClearSession(name);
+            Base = metaIngredientRepository.FindBase();
+            Nuts = metaIngredientRepository.FindNuts();
+            Impregnations = metaIngredientRepository.FindImpregnations();
+            Infusions = metaIngredientRepository.FindInfusions();
+            CandedFruits = metaIngredientRepository.FindCandedFruits();
+            Custom = metaIngredientRepository.FindCustom();
+
+            RecipeMaker.GetBaseMetaIngredients(Base);
+            MessageDict = new()
+            {
+                [IngredientType.Base] = "",
+                [IngredientType.Nut] = "",
+                [IngredientType.CandedFruit] = "",
+                [IngredientType.Infusion] = "",
+                [IngredientType.Impregnation] = "",
+                [IngredientType.Custom] = ""
+            };
+
+            TypeDict = new Dictionary<IngredientType, Tuple<List<MetaIngredient>, List<Ingredient>>>()
+            {
+                [IngredientType.Nut] = Tuple.Create(Nuts, new List<Ingredient>()),
+                [IngredientType.Impregnation] = Tuple.Create(Impregnations, new List<Ingredient>()),
+                [IngredientType.Infusion] = Tuple.Create(Infusions, new List<Ingredient>()),
+                [IngredientType.Custom] = Tuple.Create(Custom, new List<Ingredient>()),
+                [IngredientType.CandedFruit] = Tuple.Create(CandedFruits, new List<Ingredient>())
+            };
             if (RecipeMaker.Recipe.Mass == 0) Message = "Введите состав шоколада";
             else
                 RewriteMessage();
-            //else Message = $"Масса вашей основы {RecipeMaker.Recipe.Mass} гр, из них: \r\n " +
-                    //$"{RecipeMaker.milkIng.WeightInGrams} гр молока; \r\n {RecipeMaker.cocoaIng.WeightInGrams} гр какао; \r\n {RecipeMaker.sugarIng.WeightInGrams} гр сахара; \r\n {RecipeMaker.addedFatsIng.WeightInGrams} гр какао-масла.";
+            sessionHelper.AddRenewItem(name, this);
         }
     }
 }

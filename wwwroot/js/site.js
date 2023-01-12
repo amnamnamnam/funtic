@@ -20,14 +20,15 @@ function toggleButton() {
 }
 
 function toggleButton2() {
+    const recipename = document.getElementById('recipename');
     const cocoa = document.getElementById('cocoa');
     const fat = document.getElementById('fat');
     const sugar = document.getElementById('sugar');
     const milk = document.getElementById('milk');
     const send_btn = document.getElementById('send_base');
     const commonPercent = parseInt(sugar.value) + parseInt(milk.value) + parseInt(fat.value) + parseInt(cocoa.value);
-    console.log('before if', commonPercent);
-    if (commonPercent === 100) {
+    console.log('commonPercent =', commonPercent, 'recipename =', recipename.value);
+    if (commonPercent === 100 && recipename.value != '') {
         send_btn.disabled = false;
         console.log('button unlock');
     } else {

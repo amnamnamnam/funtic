@@ -132,7 +132,6 @@ namespace FUNTIK.GRASP
             var fatsP = baseParams["fatsP"];
             var sugarP = baseParams["sugarP"];
             var milkP = baseParams["milkP"];
-
             Recipe.Mass = mass;
             Recipe.CacaoPercent = cocoaP;
             var addedFatsPercent = fatsP - cocoaP * 53 / 100;
