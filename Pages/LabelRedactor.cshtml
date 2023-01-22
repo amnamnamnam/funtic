@@ -1,0 +1,28 @@
+﻿@page "/labelredactor"
+@model FUNTIK.Pages.LabelRedactorModel
+@{
+}
+<div class="main_window">
+
+    <label><h2 id="info">Редактировать этикетку</h2></label><br />
+
+    <form method="post">
+        <p>
+            <label>Изготовитель</label><br />
+            <input id="maker_name" type="text" name="maker" />
+        </p>
+        <p>
+            <label>Адрес</label><br />
+            <input id="maker_address" type="text" name="maker_address" />
+        </p>
+        <p>
+            <label>Срок годности</label><br />
+            <input id="shelf_life" type="text" name="shelf_life" />
+        </p>
+        <p>
+            <label>Дата изготовления</label><br />
+            <input id="production_date" type="text" name="production_date" />
+        </p>
+            <input type="submit" value="Загрузить этикетку"/>
+    </form>
+</div>

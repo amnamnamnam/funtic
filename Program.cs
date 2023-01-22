@@ -84,7 +84,7 @@ if (app.Environment.IsDevelopment())
 }
 
 #endregion
-
+    
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();

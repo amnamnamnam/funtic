@@ -17,12 +17,12 @@ public class IndexModel : PageModel
         _userRepository = userRepository;
     }
 
-    public void OnGet()
+   /* public void OnGet()
     {
         Name = User.Identity.Name;
         if (Name == null)
             return;
         if (_userRepository.FindUserByEmail(Name) == null)
             _userRepository.Create(new UserDa(Name));
-    }
+    }*/
 }

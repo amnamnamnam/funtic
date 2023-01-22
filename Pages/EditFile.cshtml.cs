@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using FUNTIK.Models.Repositories;
 using FUNTIK.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +10,7 @@ public class EditFileModel : PageModel
     public int recipeId;
     
     private readonly IWebHostEnvironment _hostenvironment;
-    private IRecipeRepository recipeRepository;
+        private IRecipeRepository recipeRepository;
     public EditFileModel(IWebHostEnvironment webHostEnvironment, IRecipeRepository recipeRepository)
     {
         _hostenvironment = webHostEnvironment;

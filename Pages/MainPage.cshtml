@@ -1,5 +1,6 @@
-
 @page
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @model FUNTIK.Pages.MainPageModel
 @{
@@ -7,18 +8,21 @@
 }
 <!doctype html>
 <html>
+
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<title>Funtic</title>
 	<link rel="stylesheet" href="styles.css" type="text/css">
 </head>
+@if (SignInManager.IsSignedIn(User))
+{
 <body>
 	<div class="main_window">
 		<div class="recipes">
 			<h1>Рецепты</h1>
 			
 			<div class="new_recipe">
-				<main_href><a href="https://localhost:44396/NewRecipe">Новый Рецепт</a></main_href>
+				<main_href><a href="~/NewRecipe">Новый Рецепт</a></main_href>
 			</div>
 
 			<h1>Мои рецепты</h1>
@@ -39,11 +43,18 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
-                    </tr>
+                </tr>
                 }
 
 		</div>
 	</div>
 
-</body>
+	</body>
+}
+else
+{
+    <h2> У вас еще нет сохраненных рецептов. Войдите или зарегистрируйтесь!</h2> 
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register0">Зарегистрироваться</a>
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login0">Войти</a>
+}
 </html>

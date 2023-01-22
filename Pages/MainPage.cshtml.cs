@@ -1,11 +1,13 @@
 using FUNTIK.Data;
 using FUNTIK.Models;
 using FUNTIK.Models.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FUNTIK.Pages
 {
+    [AllowAnonymous]
     public class MainPageModel : PageModel
     {
         private IUserRepository userRepository;
@@ -24,8 +26,8 @@ namespace FUNTIK.Pages
         public void OnGet()
         {
             var name = User.Identity.Name;
+            if (name != null)
             this.Recipes = userRepository.FindUserFullInfoByEmail(name).Recipes.ToList();
-            var a = 9;
         }
 
         public IActionResult OnPost(string[] recipe)

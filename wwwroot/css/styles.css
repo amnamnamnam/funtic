@@ -21,7 +21,6 @@ h1 {
 h2 {
     font-family: Helvetica, Arial, sans-serif;
     color: #000000;
-    font-size: 2vw;
     font-weight: bold;
 }
 
@@ -54,10 +53,6 @@ h2 {
     color: white;
 }
 
-.compound_send {
-    font-size: 1vw;
-}
-
 .compound {
     width: 25%;
     height: 93%;
@@ -67,7 +62,6 @@ h2 {
     right: 0;
     position: fixed;
     background-color: #82C777;
-    font-size: 1vw;
 }
 
 .main_window {
@@ -107,33 +101,6 @@ a {
     top: 0%;
 }
 
-.topnav {
-    text-align: center;
-    color: #000000;
-    left: 0px;
-    background-color: #333;
-    overflow: hidden;
-    vertical-align: top;
-}
-
-    /* Style the links inside the navigation bar */
-    .topnav a {
-        float: left;
-        color: #f2f2f2;
-        text-align: center;
-        text-decoration: none;
-        font-size: 2vw;
-        width: 16.5%;
-        padding-bottom: 2%;
-        height: 100%
-    }
-
-        /* Change the color of links on hover */
-        .topnav a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-
 .base {
     width: 85%;
 }
@@ -149,8 +116,76 @@ a {
 
 @media all and (orientation:landscape) {
 
-    #base {
-        padding-top: 160px;
-        margin-top: -160px;
+    .topnav {
+        text-align: center;
+        color: #000000;
+        left: 0px;
+        background-color: #333;
+        overflow: hidden;
+        vertical-align: top;
+    }
+
+    .final_href {
+        font-size: 1.5vw
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        text-decoration: none;
+        font-size: 2vw;
+        width: 16.5%;
+        padding-bottom: 1%;
+        height: 100%
+    }
+        /* Change the color of links on hover */
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+
+    .section {
+        scroll-margin-top: 10vw;
+    }
+
+}
+
+@media all and (orientation:portrait) {
+
+    .final_href {
+        font-size: 2.8vw
+    }
+
+    .topnav {
+        text-align: center;
+        color: #000000;
+        left: 0px;
+        background-color: #333;
+        overflow: hidden;
+        vertical-align: top;
+    }
+        /* Style the links inside the navigation bar */
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            text-decoration: none;
+            font-size: 3vw;
+            width: 16.5%;
+            padding-bottom: 1%;
+            height: 100%
+        }
+            /* Change the color of links on hover */
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+
+    .section {
+        scroll-margin-top: 20vw;
     }
 }

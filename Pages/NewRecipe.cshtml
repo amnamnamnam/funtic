@@ -1,55 +1,24 @@
 @page
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @model FUNTIK.Pages.NewRecipeModel
 @{
     ViewData["Title"] = "NewRecipe";
 }
 <!doctype html>
 <html>
+
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>Funtic</title>
     <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
+
 <body>
-    @section Footer {}
+@section Footer {}
     <div class="main_window">
-
-        <div class="topbar">
-            <header>
-                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom">
-                    <div class="container">
-                        <a class="navbar-brand" asp-area="" asp-page="/Index">FUNTIK</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/MainPage">My Recipes</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/NewRecipe">New Recipe</a>
-                                </li>
-                            </ul>
-                            <partial name="_LoginPartial" />
-                        </div>
-                    </div>
-                </nav>
-            </header>
-        </div>
-
-        <div class="topnav">
-            <a href="#base">Основа</a>
-            <a href="#nuts">Орехи</a>
-            <a href="#candied_fruits">Цукаты</a>
-            <a href="#infusion">Пропитки</a>
-            <a href="#impregnations">Начинки</a>
-            <a href="#other">Другое</a>
-        </div>
-
-        <div class="fixed_bar">
             <div class="topbar">
+
                 <header>
                     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom">
                         <div class="container">
@@ -75,160 +44,191 @@
             </div>
 
             <div class="topnav">
-                <a href="#base">Основа</a>
-                <a href="#nuts">Орехи</a>
-                <a href="#candied_fruits">Цукаты</a>
-                <a href="#infusion">Пропитки</a>
-                <a href="#impregnations">Начинки</a>
-                <a href="#other">Другое</a>
+                <a href="#base_nav">Основа</a>
+                <a href="#nuts_nav">Орехи</a>
+                <a href="#candied_fruits_nav">Цукаты</a>
+                <a href="#infusion_nav">Пропитки</a>
+                <a href="#impregnations_nav">Начинки</a>
+                <a href="#other_nav">Другое</a>
             </div>
 
-            <div class="compound">
-                <div class="compoundtext">
-                    <p>@Html.Raw(@Model.Message)</p>
+            <div class="fixed_bar">
+                <div class="topbar">
+                    <header>
+                        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom">
+                            <div class="container">
+                                <a class="navbar-brand" asp-area="" asp-page="/Index">FUNTIK</a>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                                    <ul class="navbar-nav flex-grow-1">
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-page="/MainPage">My Recipes</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-page="/NewRecipe">New Recipe</a>
+                                        </li>
+                                    </ul>
+                                    <partial name="_LoginPartial" />
+                                </div>
+                            </div>
+                        </nav>
+                    </header>
+                </div>
 
-                    <form method="post">
-                        <input type="submit" asp-page-handler="Final" id="send" value="Отправить" />
-                    </form>
+                <div class="topnav">
+                    <a href="#base_nav">Основа</a>
+                    <a href="#nuts_nav">Орехи</a>
+                    <a href="#candied_fruits_nav">Цукаты</a>
+                    <a href="#infusion_nav">Пропитки</a>
+                    <a href="#impregnations_nav">Начинки</a>
+                    <a href="#other_nav">Другое</a>
+                </div>
+
+                <div class="compound">
+                    <div class="compoundtext">
+
+                        <p>@Html.Raw(@Model.Message)</p>
+                        <div class="final_href">
+                        <form method="post">
+                            <input type="submit" asp-page-handler="Final" id="send" value="Отправить" />
+                        </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <br>
-        <br>
+            <br>
 
-        <div class="base">
-
-            <label><h2 id="base">Основа:</h2></label><br />
-
-            <div class=percents>
-                <form method="post" >
-                    <p>
-                        <label>Название вашего рецепта:</label><br />
-                        <input id="recipename" type="text" name="baseParam0" />
-                    </p>
-                    <p>
-                        <label>Масса основы в граммах:</label><br />
-                        <input id="mass" type="number" name="baseParam" min="0" value="0" step="any"/>
-                    </p>
-                    <p>
-                        <label>Содержание какао в процентах:</label><br />
-                        <input id="cocoa" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
-                    </p>
-                    <p>
-                        <label>Содержание какао-масла в процентах:</label><br />
-                        <input id="fat" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
-                    </p>
-                    <p>
-                        <label>Содержание сахара в процентах:</label><br />
-                        <input id="sugar" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
-                    </p>
-                    <p>
-                        <label>Содержание молока в процентах:</label><br />
-                        <input id="milk" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
-                    </p>
-
-                    <input type="submit" asp-page-handler="Base" id="send_base" value="Отправить" disabled="" />
-                </form>
-
-            </div>
-        </div>
-        <br />
-        <form method="post">
-            <table>
-                <label><h2 id="nuts">Орехи:</h2></label>
+                <h2><label class ="section" id="base_nav">Основа:</label></h2>
                 <br />
-                @foreach (var nut in Model.Nuts)
-                {
-                    <tr>
-                        <td>
-                            <input id="@nut.Name" type="checkbox" name="Ingredient" , checked="checked" , value="@nut.Name, @((int) nut.Type)" />
-                        </td>
-                        <td>
-                            <label for="@nut.Name">@nut.Name</label>
-                        </td>
-                    </tr>
-                }
-            </table>
+                <div class=percents>
+                    <form method="post" >
+                        <p>
+                            <label>Название вашего рецепта:</label><br />
+                            <input id="recipename" type="text" name="baseParam0" />
+                        </p>
+                        <p>
+                            <label>Масса основы в граммах:</label><br />
+                            <input id="mass" type="number" name="baseParam" min="0" value="0" step="any"/>
+                        </p>
+                        <p>
+                            <label>Содержание какао в %:</label><br />
+                            <input id="cocoa" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
+                        </p>
+                        <p>
+                            <label>Содержание какао-масла в %:</label><br />
+                            <input id="fat" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
+                        </p>
+                        <p>
+                            <label>Содержание сахара в %:</label><br />
+                            <input id="sugar" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
+                        </p>
+                        <p>
+                            <label>Содержание молока в %:</label><br />
+                            <input id="milk" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
+                        </p>
+
+                        <input type="submit" asp-page-handler="Base" id="send_base" value="Сохранить" disabled="" />
+                    </form>
+                </div>
             <br />
-            <input type="submit" value="Отправить" asp-page-handler="Ingredients" />
-        </form>
-        <br />
-        <label><h2>Цукаты:</h2></label><br />
-        <form method="post">
-            <table>
-                @foreach (var candedFruit in Model.CandedFruits)
-                {
-                    <tr>
-                        <td>
-                            <input id="@candedFruit.Name" type="checkbox" name="Ingredient" checked="checked" , value="@candedFruit.Name, @((int) candedFruit.Type)" />
-                        </td>
-                        <td>
-                            <label for="@candedFruit.Name">@candedFruit.Name</label>
-                        </td>
-                    </tr>
-                }
-            </table>
+            <form method="post">
+                <table>
+                    <h2><label class="section" id="nuts_nav">Орехи:</label></h2>
+                    @foreach (var nut in Model.Nuts)
+                    {
+                        <tr>
+                            <td>
+                                <input id="@nut.Name" type="checkbox" name="Ingredient" checked="checked" value="@nut.Name, @((int) nut.Type)" />
+                            </td>
+                            <td>
+                                <label for="@nut.Name">@nut.Name</label>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <br />
+                <input type="submit" value="Сохранить" asp-page-handler="Ingredients" />
+            </form>
             <br />
-            <input type="submit" value="Отправить" asp-page-handler="Ingredients" />
-        </form>
-        <br />
-        <label><h2>Пропитки:</h2></label><br />
-        <form method="post">
-            <table>
-                @foreach (var infusion in Model.Infusions)
-                {
-                    <tr>
-                        <td>
-                            <input id="@infusion.Name" type="checkbox" name="Ingredient" , checked="checked" , value="@infusion.Name, @((int) infusion.Type)" />
-                        </td>
-                        <td>
-                            <label for="@infusion.Name">@infusion.Name</label>
-                        </td>
-                    </tr>
-                }
-            </table>
+            <h2><label class ="section" id="candied_fruits_nav">Цукаты:</label></h2>
+            <form method="post">
+                <table>
+                    @foreach (var candedFruit in Model.CandedFruits)
+                    {
+                        <tr>
+                            <td>
+                                <input id="@candedFruit.Name" type="checkbox" name="Ingredient" checked="checked" , value="@candedFruit.Name, @((int) candedFruit.Type)" />
+                            </td>
+                            <td>
+                                <label for="@candedFruit.Name">@candedFruit.Name</label>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <br />
+                <input type="submit" value="Сохранить" asp-page-handler="Ingredients" />
+            </form>
             <br />
-            <input type="submit" value="Отправить" asp-page-handler="Ingredients" />
-        </form>
-        <br />
-        <label><h2>Начинки:</h2></label><br />
-        <form method="post">
-            <table>
-                @foreach (var impregnation in Model.Impregnations)
-                {
-                    <tr>
-                        <td>
-                            <input id="@impregnation.Name" type="checkbox" , checked="checked" , name="Ingredient" value="@impregnation.Name, @((int)impregnation.Type)" />
-                        </td>
-                        <td>
-                            <label for="@impregnation.Name">@impregnation.Name</label>
-                        </td>
-                    </tr>
-                }
-            </table>
+            <h2><label class="section" id="infusion_nav">Пропитки:</label></h2>
+            <form method="post">
+                <table>
+                    @foreach (var infusion in Model.Infusions)
+                    {
+                        <tr>
+                            <td>
+                                <input id="@infusion.Name" type="checkbox" name="Ingredient" checked="checked" value="@infusion.Name, @((int) infusion.Type)" />
+                            </td>
+                            <td>
+                                <label for="@infusion.Name">@infusion.Name</label>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <br />
+                <input type="submit" value="Сохранить" asp-page-handler="Ingredients" />
+            </form>
             <br />
-            <input type="submit" value="Отправить" asp-page-handler="Ingredients" />
-        </form>
-        <br />
-        <label><h2>Другое:</h2></label><br />
-        <form method="post">
-            <table>
-                @foreach (var custom in Model.Custom)
-                {
-                    <tr>
-                        <td>
-                            <input id="@custom.Name" type="checkbox" name="Ingredient" , checked="checked" , value="@custom.Name, @((int)custom.Type)" />
-                        </td>
-                        <td>
-                            <label for="@custom.Name">@custom.Name</label>
-                        </td>
-                    </tr>
-                }
-            </table>
+            <h2><label class="section" id="impregnations_nav">Начинки:</label></h2>
+            <form method="post">
+                <table>
+                    @foreach (var impregnation in Model.Impregnations)
+                    {
+                        <tr>
+                            <td>
+                                <input id="@impregnation.Name" type="checkbox" checked="checked" name="Ingredient" value="@impregnation.Name, @((int)impregnation.Type)" />
+                            </td>
+                            <td>
+                                <label for="@impregnation.Name">@impregnation.Name</label>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <br />
+                <input type="submit" value="Сохранить" asp-page-handler="Ingredients" />
+            </form>
             <br />
-            <input type="submit" value="Отправить" asp-page-handler="Ingredients" />
-        </form>
-    </div>
+            <h2><label class="section" id="other_nav">Другое:</h2></label><br />
+            <form method="post">
+                <table>
+                    @foreach (var custom in Model.Custom)
+                    {
+                        <tr>
+                            <td>
+                                <input id="@custom.Name" type="checkbox" name="Ingredient" checked="checked" value="@custom.Name, @((int)custom.Type)" />
+                            </td>
+                            <td>
+                                <label for="@custom.Name">@custom.Name</label>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <br />
+                <input type="submit" value="Сохранить" asp-page-handler="Ingredients" />
+            </form>
+      </div>
 </body>
 </html>

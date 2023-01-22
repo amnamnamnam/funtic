@@ -7,6 +7,7 @@ namespace FUNTIK.Models.Repositories
     {
         public void Create(Recipe recipe);
         public void Delete(Recipe recipe);
+        public Recipe? GetWithUserById(int id);
         public Recipe? Find(Func<Recipe, bool> func);
         public List<Recipe> FindAll(Func<Recipe, bool> func);
         public void Update(Recipe recipe);
@@ -32,6 +33,12 @@ namespace FUNTIK.Models.Repositories
         {
             context.Recipes.Remove(recipe);
             context.SaveChanges();
+        }
+
+        public Recipe? GetWithUserById(int id)
+        {
+            var tmp_meta = context.MetaIngredients.ToList();
+            return context.Recipes.Include(r => r.Ingredients).Include(r => r.User).FirstOrDefault(r => r.Id == id);
         }
 
         //отдельно лямбды (не func)

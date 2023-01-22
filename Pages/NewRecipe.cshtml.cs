@@ -7,10 +7,11 @@ using System.Data.SqlClient;
 using System.Collections.Generic;
 using FUNTIK.Models.Repositories;
 using System.Reflection;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace FUNTIK.Pages
 {
+    [AllowAnonymous]
 
     public class NewRecipeModel : PageModel
     {
@@ -19,7 +20,7 @@ namespace FUNTIK.Pages
         public Dictionary<IngredientType, string> MessageDict { get; set; }
         public List<MetaIngredient> Base { get; set; }
         public List<MetaIngredient> Nuts { get; set; }
-        public List<MetaIngredient>  Impregnations { get; set; }
+        public List<MetaIngredient> Impregnations { get; set; }
         public List<MetaIngredient> Infusions { get; set; }
         public List<MetaIngredient> CandedFruits { get; set; }
         public List<MetaIngredient> Custom { get; set; }
@@ -80,8 +81,10 @@ namespace FUNTIK.Pages
 
             var baseDict = new Dictionary<string, int>()
             {
-                ["mass"] = baseParam[0], ["cocoaP"] = baseParam[1],
-                ["fatsP"] = baseParam[2], ["sugarP"] = baseParam[3],
+                ["mass"] = baseParam[0],
+                ["cocoaP"] = baseParam[1],
+                ["fatsP"] = baseParam[2],
+                ["sugarP"] = baseParam[3],
                 ["milkP"] = baseParam[4]
             };
 
@@ -91,7 +94,7 @@ namespace FUNTIK.Pages
                     $"{baseParam[4]} {baseParam[1]} {baseParam[3]} {baseParam[2]}";
             //Message = "Вы выбрали: " + String.Join("\n", MessageDict.Select(x => x.Value).ToArray());
             RewriteMessage();
-			var name = User.Identity.Name;
+            var name = User.Identity.Name;
             RecipeMaker.Recipe.Name = baseParam0;
             sessionHelper.AddRenewItem(name, this);
         }
@@ -110,11 +113,11 @@ namespace FUNTIK.Pages
             {
                 [IngredientType.Base] = "Основа",
                 [IngredientType.Nut] = "Орехи",
-				[IngredientType.CandedFruit] = "Цукаты",
-				[IngredientType.Infusion] = "Пропитки",
-				[IngredientType.Impregnation] = "Начинки",
-				[IngredientType.Custom] = "Другое",
-			};
+                [IngredientType.CandedFruit] = "Цукаты",
+                [IngredientType.Infusion] = "Пропитки",
+                [IngredientType.Impregnation] = "Начинки",
+                [IngredientType.Custom] = "Другое",
+            };
 
             var choco_base = MessageDict[IngredientType.Base].Split(' ');
 
@@ -131,11 +134,11 @@ namespace FUNTIK.Pages
             foreach (var type in MessageDict.Keys)
             {
                 if (MessageDict[type].Length > 0 && type != IngredientType.Base)
-					Message += $"{TypesDict[type]}:<br/>" + MessageDict[type] + "<br/><br/>";
+                    Message += $"{TypesDict[type]}:<br/>" + MessageDict[type] + "<br/><br/>";
             }
         }
-        
-         public void RenewRecipe()
+
+        public void RenewRecipe()
         {
             var MetaIngredients = metaIngredientRepository.GetAll();
             for (var i = 0; i < RecipeMaker.Recipe.Ingredients.Count; i++)
@@ -144,7 +147,7 @@ namespace FUNTIK.Pages
             }
         }
 
-         public void OnPostIngredients(List<string> ingredient)
+        public void OnPostIngredients(List<string> ingredient)
         {
             if (ingredient.Count == 0)
                 return;
@@ -171,13 +174,9 @@ namespace FUNTIK.Pages
             RecipeMaker.Recipe.ShelfLife = "30 суток";
             RecipeMaker.CompileRecipe();
             UserDa.Contacts = "vk: chokolate_miass";
-            var LM = new LabelMaker(RecipeMaker.Recipe, UserDa, RecipeRepository);
-            var lablstr = LM.CreateLabelString();
-            var label = LM.CreateLabel(lablstr);
             RenewRecipe();
             RecipeRepository.Create(RecipeMaker.Recipe);
-            LM.SaveImage(label);
-            return Redirect(String.Format("~/EditFile?RecipeId={0}", RecipeMaker.Recipe.Id));
+            return Redirect(String.Format("~/LabelRedactor?RecipeId={0}", RecipeMaker.Recipe.Id));
         }
 
         public void OnGet()
