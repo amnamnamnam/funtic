@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace FUNTIK.Areas.Identity.Pages.Account
 {
+
+    [AllowAnonymous]
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;

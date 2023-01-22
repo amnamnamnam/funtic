@@ -3,7 +3,7 @@
 @inject UserManager<IdentityUser> UserManager
 @model FUNTIK.Pages.NewRecipeModel
 @{
-    ViewData["Title"] = "NewRecipe";
+    ViewData["Title"] = "Новый рецепт";
 }
 <!doctype html>
 <html>
@@ -13,6 +13,7 @@
     <title>Funtic</title>
     <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
+
 
 <body>
 @section Footer {}
@@ -30,10 +31,10 @@
                             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                                 <ul class="navbar-nav flex-grow-1">
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-page="/MainPage">My Recipes</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/MainPage">Мои рецепты</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-page="/NewRecipe">New Recipe</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/NewRecipe">Новый рецепт</a>
                                     </li>
                                 </ul>
                                 <partial name="_LoginPartial" />
@@ -65,10 +66,10 @@
                                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                                     <ul class="navbar-nav flex-grow-1">
                                         <li class="nav-item">
-                                            <a class="nav-link text-dark" asp-area="" asp-page="/MainPage">My Recipes</a>
+                                            <a class="nav-link text-dark" asp-area="" asp-page="/MainPage">Мои рецепты</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-dark" asp-area="" asp-page="/NewRecipe">New Recipe</a>
+                                            <a class="nav-link text-dark" asp-area="" asp-page="/NewRecipe">Новый рецепт</a>
                                         </li>
                                     </ul>
                                     <partial name="_LoginPartial" />
@@ -93,7 +94,7 @@
                         <p>@Html.Raw(@Model.Message)</p>
                         <div class="final_href">
                         <form method="post">
-                            <input type="submit" asp-page-handler="Final" id="send" value="Отправить" />
+                            <input type="submit" style="margin-bottom: 40%" asp-page-handler="Final" id="send" value="Сохранить и продолжить" />
                         </form>
                         </div>
                     </div>
@@ -101,7 +102,6 @@
             </div>
 
             <br>
-
                 <h2><label class ="section" id="base_nav">Основа:</label></h2>
                 <br />
                 <div class=percents>
@@ -119,7 +119,15 @@
                             <input id="cocoa" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
                         </p>
                         <p>
-                            <label>Содержание какао-масла в %:</label><br />
+                            <label>Содержание какао-масла в %:</label>
+                            <br />
+                            (Обратите внимание, что в вашем какао-сырье уже содержится 53% какао-масла от массы сырья)
+                            <br />
+                            <br />
+                            Уже есть:
+                            <input id="fat0" type="number" name="baseParam" oninput="toggleButton2()" value="0" />
+
+                            Добавить:
                             <input id="fat" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
                         </p>
                         <p>
@@ -131,9 +139,10 @@
                             <input id="milk" type="number" name="baseParam" oninput="toggleButton2()" min="0" max="100" value="0" step="any" />
                         </p>
 
-                        <input type="submit" asp-page-handler="Base" id="send_base" value="Сохранить" disabled="" />
+                        <input type="submit" asp-page-handler="Base" id="send_base" value="Сохранить" disabled  ="" />
                     </form>
                 </div>
+                
             <br />
             <form method="post">
                 <table>
@@ -142,7 +151,7 @@
                     {
                         <tr>
                             <td>
-                                <input id="@nut.Name" type="checkbox" name="Ingredient" checked="checked" value="@nut.Name, @((int) nut.Type)" />
+                                <input id="@nut.Name" type="checkbox" name="Ingredient" value="@nut.Name, @((int) nut.Type)" />
                             </td>
                             <td>
                                 <label for="@nut.Name">@nut.Name</label>
@@ -161,7 +170,7 @@
                     {
                         <tr>
                             <td>
-                                <input id="@candedFruit.Name" type="checkbox" name="Ingredient" checked="checked" , value="@candedFruit.Name, @((int) candedFruit.Type)" />
+                                <input id="@candedFruit.Name" type="checkbox" name="Ingredient" , value="@candedFruit.Name, @((int) candedFruit.Type)" />
                             </td>
                             <td>
                                 <label for="@candedFruit.Name">@candedFruit.Name</label>
@@ -180,7 +189,7 @@
                     {
                         <tr>
                             <td>
-                                <input id="@infusion.Name" type="checkbox" name="Ingredient" checked="checked" value="@infusion.Name, @((int) infusion.Type)" />
+                                <input id="@infusion.Name" type="checkbox" name="Ingredient" value="@infusion.Name, @((int) infusion.Type)" />
                             </td>
                             <td>
                                 <label for="@infusion.Name">@infusion.Name</label>
@@ -199,7 +208,7 @@
                     {
                         <tr>
                             <td>
-                                <input id="@impregnation.Name" type="checkbox" checked="checked" name="Ingredient" value="@impregnation.Name, @((int)impregnation.Type)" />
+                                <input id="@impregnation.Name" type="checkbox" name="Ingredient" value="@impregnation.Name, @((int)impregnation.Type)" />
                             </td>
                             <td>
                                 <label for="@impregnation.Name">@impregnation.Name</label>
@@ -211,14 +220,14 @@
                 <input type="submit" value="Сохранить" asp-page-handler="Ingredients" />
             </form>
             <br />
-            <h2><label class="section" id="other_nav">Другое:</h2></label><br />
+            <h2><label class="section" id="other_nav">Другое:</label></h2>
             <form method="post">
                 <table>
                     @foreach (var custom in Model.Custom)
                     {
                         <tr>
                             <td>
-                                <input id="@custom.Name" type="checkbox" name="Ingredient" checked="checked" value="@custom.Name, @((int)custom.Type)" />
+                                <input id="@custom.Name" type="checkbox" name="Ingredient" value="@custom.Name, @((int)custom.Type)" />
                             </td>
                             <td>
                                 <label for="@custom.Name">@custom.Name</label>
@@ -229,6 +238,7 @@
                 <br />
                 <input type="submit" value="Сохранить" asp-page-handler="Ingredients" />
             </form>
+
       </div>
 </body>
 </html>

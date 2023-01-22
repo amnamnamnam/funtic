@@ -23,12 +23,17 @@ function toggleButton2() {
     const recipename = document.getElementById('recipename');
     const cocoa = document.getElementById('cocoa');
     const fat = document.getElementById('fat');
+    const fat0 = document.getElementById('fat0');
     const sugar = document.getElementById('sugar');
     const milk = document.getElementById('milk');
     const send_btn = document.getElementById('send_base');
     const commonPercent = parseInt(sugar.value) + parseInt(milk.value) + parseInt(fat.value) + parseInt(cocoa.value);
     console.log('commonPercent =', commonPercent, 'recipename =', recipename.value);
-    if (commonPercent === 100 && recipename.value != '') {
+
+
+    document.getElementById('fat0').value = Math.round(cocoa.value * 53 / 100);
+
+    if (commonPercent === 100 && recipename.value != '' && cocoa.value != '0') {
         send_btn.disabled = false;
         console.log('button unlock');
     } else {
@@ -36,3 +41,13 @@ function toggleButton2() {
         console.log('button lock');
     }
 }
+
+/*function printImage(imageBytes) {
+    console.log('Функция запустилась');
+    const imageBlob = new Blob([imageBytes], { type: "image/png" });
+    console.log('Функция ещё работает');
+    const imageUrl = URL.createObjectURL(imageBlob);
+    const printWindow = window.open(imageUrl, "Print", "height=500,width=500");
+    printWindow.print();
+    console.log('Функция завершилась');
+}*/

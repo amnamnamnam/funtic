@@ -1,22 +1,73 @@
 ﻿@page
+@using Newtonsoft.Json
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @model FUNTIK.Pages.RecipeModel
 @{
-     ViewData["Title"] = "Recipe";
+	ViewData["Title"] = "RecipePage";
 }
+
+<script>
+	console.log('Я родился');
+	var ImageData = @Html.Raw(JsonConvert.SerializeObject(Model.Recipe.Photo));
+	var img = document.createElement("img");
+	img.src = "data:image/png;base64," + btoa(ImageData);
+	document.body.appendChild(img);
+
+	function printImage() {
+		var printWindow = window.open("", "Print Image", "height=600,width=800");
+		printWindow.document.write('<img src="data:image/png;base64,@Convert.ToBase64String(Model.Recipe.Photo)" alt="My Image" />');
+		printWindow.print();
+		printWindow.close();
+	}
+</script>
+
 <!doctype html>
 <html>
+
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<title>Funtic</title>
 	<link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 <body>
-	<div class="main_window">
-		<div class="links">
-            <main_href><a href="~/MainPage">Funtic</a></main_href>
-            <main_href><a href="~/MainPage">Печать</a></main_href>
-            <main_href><a href="~/NewRecipe">Редактировать</a></main_href>
-        </div>
+	<div class="main_window">	
+		<h1>@Model.Recipe.Name</h1>
+		<table >
+			<tr> 
+			<td>
+				<p>@Html.Raw(@Model.Compound)</p>
+			</td>
+			<td>
+				<img src="data:image/png;base64,@Convert.ToBase64String(Model.Recipe.Photo)" alt="My Image" width="80%" />
+			</td>
+			</tr>
+		</table>
+
+		<form enctype="multipart/form-data" method="post">
+			<table class="table">
+				<tr>
+				</tr>
+				<tr>
+					<a style="max-width: 25%; background-color: #82C777; color: black; border: 2px solid black; padding-top: 2%; padding-bottom: 2%; padding-left: 2%; padding-right: 2%; margin-top: 2%;" download href="@Url.Page("Recipe", "DownloadFile", new {  recipeId = Model.Recipe.Id })">Загрузить этикетку</a>
+				</tr>
+			</table>
+		</form>
+
+		<button id="print-button" style="max-width: 25%; background-color: #82C777; color: black; margin-top: 2%;" onclick="printImage()">Печать</button>
+
+		<form method="post">
+			<button name="recipe" type="submit" style=" max-width: 25%; background-color: #82C777; color: black; margin-top: 2%;" value=@Model.Recipe.Id asp-page-handler="EditRecipe">Редактировать рецепт @Model.Recipe.Name</button>
+		</form>
+
+		<form method="post">
+			<button name="recipe" type="submit" style=" max-width: 25%; background-color: #82C777; color: black; margin-top: 2%;" value=@Model.Recipe.Id asp-page-handler="EditLabel">Редактировать этикетку @Model.Recipe.Name</button>
+		</form>
+
+		<form method="post">
+			<button name="recipe" type="submit" style=" max-width: 25%; background-color: #82C777; color:black; margin-top: 2%;" value=@Model.Recipe.Id asp-page-handler="Delete">Удалить @Model.Recipe.Name</button>
+		</form>
 	</div>
 </body>
 </html>

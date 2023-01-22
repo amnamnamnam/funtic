@@ -1,7 +1,28 @@
 ﻿@page "/editfile"
+@using Newtonsoft.Json
  @model EditFileModel
  @{
  }
+
+<script>
+    console.log('Я родился');
+    var ImageData = @Html.Raw(JsonConvert.SerializeObject(Model.ImageData));
+    var img = document.createElement("img");
+    img.src = "data:image/png;base64," + btoa(ImageData);
+    document.body.appendChild(img);
+
+    function printImage() {
+        var printWindow = window.open("", "Print Image", "height=600,width=800");
+        printWindow.document.write('<img src="data:image/png;base64,@Convert.ToBase64String(Model.ImageData)" alt="My Image" />');
+        printWindow.print();
+        printWindow.close();
+    }
+</script>
+
+
+
+ <img src="data:image/png;base64,@Convert.ToBase64String(Model.ImageData)" alt="My Image" />
+
  <form enctype="multipart/form-data" method="post">
      <table class="table">
         <tr>
@@ -12,4 +33,5 @@
                 <a download href="@Url.Page("EditFile", "DownloadFileFromFolder", new { recipeId = Model.recipeId})">Загрузить этикетку</a>
          </tr> 
      </table> 
- </form>
+ </form >
+<button id="print-button" onclick="printImage()">Print</button>

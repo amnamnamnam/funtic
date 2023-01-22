@@ -4,7 +4,7 @@
 
 @model FUNTIK.Pages.MainPageModel
 @{
-	ViewData["Title"] = "MainPage";
+	ViewData["Title"] = "Мои рецепты";
 }
 <!doctype html>
 <html>
@@ -31,20 +31,10 @@
             <tbody>
 		    @foreach (var recipe in Model.Recipes)
             {
-                <form method="post">
-                <button name="recipe" type="submit" value=@recipe.Id>Удалить @recipe.Name</button>
-                </form>
+				<a style="margin-top: 1%; margin-bottom: 1%; padding-top: 1%; padding-bottom: 1%; font-size:3.5ex; border: 2px solid black; background-color: #D7D7D7;" href="@String.Format("/Recipe?RecipeId={0}", recipe.Id)">@recipe.Name</a>
             }
             </tbody>
         </table>
-		        @foreach (var item in Model.Recipes) 
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                </tr>
-                }
 
 		</div>
 	</div>
@@ -53,8 +43,10 @@
 }
 else
 {
-    <h2> У вас еще нет сохраненных рецептов. Войдите или зарегистрируйтесь!</h2> 
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register0">Зарегистрироваться</a>
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login0">Войти</a>
+    <body>
+            <div class="no_access">
+                 <h2> У вас еще нет сохраненных рецептов. Войдите или зарегистрируйтесь!</h2> 
+            </div>
+    </body>
 }
 </html>

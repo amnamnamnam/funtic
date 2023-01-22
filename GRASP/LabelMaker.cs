@@ -26,7 +26,8 @@ namespace FUNTIK.GRASP
 
         public string CreateLabelString()
         {
-            return $"Содержание какао-продуктов не менее { recipe.CacaoPercent} % \n Состав: { String.Join(", ", recipe.Ingredients.Select(x => x.Name).ToArray()) } \n Пищевая ценность в 100 гр продукта: 557 кКал/kcal \n Энергеническая ценность в 100 гр продукта: 2325 кДж \n Срок хранения 6 мес. \n Хранить при температуре +12/+18 С и относительной влажности воздуха не более 75%, не подвергать воздействию прямых солнечных лучей. Контакты: { user.Contacts }. \n Масса нетто: { recipe.Mass } гр.";
+            Random rnd = new Random();
+            return $"{ recipe.Name } \n\rСодержание какао-продуктов не менее { recipe.CacaoPercent} %. \n\rСостав: { String.Join(", ", recipe.Ingredients.Where(x => x.MetaIngredient.Type == IngredientType.Base).Select(x => x.Name).ToArray()) } \n\r{ String.Join(", ", recipe.Ingredients.Where(x => x.MetaIngredient.Type != IngredientType.Base).Select(x => x.Name).ToArray()) }\n\rКалорийность на 100 гр продукта: {598 + rnd.Next(-50, 50)} кКал. Срок хранения { recipe.ShelfLife }. Хранить в прохладном, сухом месте, вдали от чрезмерной жары или влажности. Идеальная температура для хранения шоколада составляет 18-20 градусов. Контакты: { user.Contacts }. \n\rМасса нетто: { recipe.Mass } гр.";
         }
 
         public string AddCookingDate(string labelString, string cookingDate)

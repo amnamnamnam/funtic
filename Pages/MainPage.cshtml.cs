@@ -26,8 +26,15 @@ namespace FUNTIK.Pages
         public void OnGet()
         {
             var name = User.Identity.Name;
-            if (name != null)
-            this.Recipes = userRepository.FindUserFullInfoByEmail(name).Recipes.ToList();
+            var userInfo = userRepository.FindUserFullInfoByEmail(name);
+            if (name != null && userInfo != null)
+            {
+                this.Recipes = userInfo.Recipes.ToList();
+            }
+            else
+            {
+                this.Recipes = new List<Recipe>();
+            }
         }
 
         public IActionResult OnPost(string[] recipe)
@@ -36,7 +43,6 @@ namespace FUNTIK.Pages
             Recipes = userRepository.FindUserFullInfoByEmail(name).Recipes.ToList();
 
             recipeRepository.Delete(Recipes.FirstOrDefault(x => x.Id == int.Parse(recipe[0])));
-            var a = 8;
             Recipes = userRepository.FindUserFullInfoByEmail(name).Recipes.ToList();
             return Redirect("~/MainPage");
         }

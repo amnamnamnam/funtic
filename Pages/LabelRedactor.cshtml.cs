@@ -22,12 +22,14 @@ namespace FUNTIK.Pages
             recipeId = int.Parse(Request.Query["RecipeId"]);
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string maker, string maker_address, string shelf_life, string production_date)
         {
             recipeId = int.Parse(Request.Query["RecipeId"]);
             var r = recipeRepository.GetWithUserById(recipeId);
+            r.User.Contacts = maker + ". " + maker_address;
+            r.ShelfLife = shelf_life + ". Произведено " + production_date;
             var LM = new LabelMaker(r, r.User, recipeRepository);
-                var lablstr = LM.CreateLabelString();
+            var lablstr = LM.CreateLabelString();
             var label = LM.CreateLabel(lablstr);
             LM.SaveImage(label);
             return Redirect(String.Format("~/EditFile?RecipeId={0}", recipeId));

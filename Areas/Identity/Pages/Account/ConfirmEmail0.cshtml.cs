@@ -12,16 +12,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using FUNTIK.Models.Repositories;
 
 namespace FUNTIK.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IUserRepository _userRepository;
 
-        public ConfirmEmailModel(UserManager<IdentityUser> userManager)
+        public ConfirmEmailModel(UserManager<IdentityUser> userManager, IUserRepository userRepository)
         {
             _userManager = userManager;
+            _userRepository = userRepository;
         }
 
         [TempData]
@@ -41,6 +45,8 @@ namespace FUNTIK.Areas.Identity.Pages.Account
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
+            if (_userRepository.FindUserByEmail(user.UserName) == null)
+                _userRepository.Create(new UserDa(user.UserName));
             StatusMessage = result.Succeeded ? "Спасибо за подтверждение адреса" : "Ошибка при подтверждении адреса";
             return Page();
         }

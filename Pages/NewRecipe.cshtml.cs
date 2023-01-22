@@ -16,7 +16,7 @@ namespace FUNTIK.Pages
     public class NewRecipeModel : PageModel
     {
         public string Message { get; set; }
-
+        public int oldRecipeId { get; set; } = -1;
         public Dictionary<IngredientType, string> MessageDict { get; set; }
         public List<MetaIngredient> Base { get; set; }
         public List<MetaIngredient> Nuts { get; set; }
@@ -83,20 +83,44 @@ namespace FUNTIK.Pages
             {
                 ["mass"] = baseParam[0],
                 ["cocoaP"] = baseParam[1],
-                ["fatsP"] = baseParam[2],
-                ["sugarP"] = baseParam[3],
-                ["milkP"] = baseParam[4]
+                ["fatsP"] = baseParam[2] + baseParam[3],
+                ["sugarP"] = baseParam[4],
+                ["milkP"] = baseParam[5]
             };
 
             RestoreSession();
             RecipeMaker.UpdateRecipeBase(baseDict);
             MessageDict[IngredientType.Base] = $"{RecipeMaker.Recipe.Mass} " +
-                    $"{baseParam[4]} {baseParam[1]} {baseParam[3]} {baseParam[2]}";
+                    $"{baseParam[5]} {baseParam[1]} {baseParam[4]} {baseParam[2]+baseParam[3]}";
             //Message = "Вы выбрали: " + String.Join("\n", MessageDict.Select(x => x.Value).ToArray());
-            RewriteMessage();
+            //RewriteMessage();
+            MakeCompound();
             var name = User.Identity.Name;
             RecipeMaker.Recipe.Name = baseParam0;
             sessionHelper.AddRenewItem(name, this);
+        }
+
+        public void MakeCompound()
+        {
+            var headers = new List<string> { "Основа:<br/>", "Орехи:<br/>", "Начинки:<br/>", "Пропитки:<br/>", "Цукаты:<br/>", "Другое:<br/>" };
+            var message = "";
+            for (int i = 0; i <= 5; i++)
+            {
+                var plusMessage = String.Join("", RecipeMaker.Recipe.Ingredients.Where(ingredient => (int)ingredient.MetaIngredient.Type == i).Select(ing => MakeOneIngredientString(ing)).ToList());
+                if (plusMessage != "")
+                    message += headers[i] + plusMessage + "<br/>";
+            }
+            this.Message = message;
+        }
+
+        public string MakeOneIngredientString(Ingredient ing)
+        {
+            var result = "";
+            if ((int)ing.MetaIngredient.Type == 0)
+                result += ing.Name + ": " + ing.WeightInGrams.ToString() + "гр.<br/>";
+            else
+                result += ing.Name + "<br/>";
+            return result;
         }
 
         public List<MetaIngredient> ParseCheckBox(List<string> selectedItems)
@@ -107,36 +131,7 @@ namespace FUNTIK.Pages
             return selectedItems.Select(x => x.Split(", ")[0]).Select(p => metaIngredientList.FirstOrDefault(x => x.Name == p)).ToList();
         }
 
-        public void RewriteMessage()
-        {
-            var TypesDict = new Dictionary<IngredientType, string>()
-            {
-                [IngredientType.Base] = "Основа",
-                [IngredientType.Nut] = "Орехи",
-                [IngredientType.CandedFruit] = "Цукаты",
-                [IngredientType.Infusion] = "Пропитки",
-                [IngredientType.Impregnation] = "Начинки",
-                [IngredientType.Custom] = "Другое",
-            };
-
-            var choco_base = MessageDict[IngredientType.Base].Split(' ');
-
-
-            Message = $"Состав:<br/>" +
-                    $"Масса вашей основы " +
-                    $"{choco_base[0]} гр, из них:<br/>" +
-                    $"{choco_base[4]} гр молока;<br/> " +
-                    $"{choco_base[1]} гр какао;<br/>" +
-                    $"{choco_base[3]} гр сахара;<br/>" +
-                    $"{choco_base[2]} гр какао-масла.<br/>" +
-                    $"<br/>";
-
-            foreach (var type in MessageDict.Keys)
-            {
-                if (MessageDict[type].Length > 0 && type != IngredientType.Base)
-                    Message += $"{TypesDict[type]}:<br/>" + MessageDict[type] + "<br/><br/>";
-            }
-        }
+        
 
         public void RenewRecipe()
         {
@@ -160,7 +155,8 @@ namespace FUNTIK.Pages
             TypeDict[type] = Tuple.Create(metaIngredientList, chosenIngredients);
             MessageDict[type] = String.Join(", ", chosenIngredients.Select(x => x.Name).ToArray());
             //Message = String.Join(";", MessageDict.Select(x => x.Value).ToArray());
-            RewriteMessage();
+            //RewriteMessage();
+            MakeCompound();
             var name = User.Identity.Name;
             sessionHelper.AddRenewItem(name, this);
         }
@@ -171,48 +167,77 @@ namespace FUNTIK.Pages
             var name = User.Identity.Name;
             UserDa = userRepository.FindUserByEmail(name);
             RecipeMaker.Recipe.User = UserDa;
-            RecipeMaker.Recipe.ShelfLife = "30 суток";
+            RecipeMaker.Recipe.ShelfLife = "";
             RecipeMaker.CompileRecipe();
-            UserDa.Contacts = "vk: chokolate_miass";
+            UserDa.Contacts = "";
             RenewRecipe();
-            RecipeRepository.Create(RecipeMaker.Recipe);
+            if (oldRecipeId == -1)
+                RecipeRepository.Create(RecipeMaker.Recipe);
+            else
+                RecipeRepository.Update(RecipeMaker.Recipe);
             return Redirect(String.Format("~/LabelRedactor?RecipeId={0}", RecipeMaker.Recipe.Id));
         }
 
         public void OnGet()
         {
             var name = User.Identity.Name;
-            sessionHelper.ClearSession(name);
-            Base = metaIngredientRepository.FindBase();
-            Nuts = metaIngredientRepository.FindNuts();
-            Impregnations = metaIngredientRepository.FindImpregnations();
-            Infusions = metaIngredientRepository.FindInfusions();
-            CandedFruits = metaIngredientRepository.FindCandedFruits();
-            Custom = metaIngredientRepository.FindCustom();
 
-            RecipeMaker.GetBaseMetaIngredients(Base);
-            MessageDict = new()
+            if (name == null)
             {
-                [IngredientType.Base] = "",
-                [IngredientType.Nut] = "",
-                [IngredientType.CandedFruit] = "",
-                [IngredientType.Infusion] = "",
-                [IngredientType.Impregnation] = "",
-                [IngredientType.Custom] = ""
-            };
-
-            TypeDict = new Dictionary<IngredientType, Tuple<List<MetaIngredient>, List<Ingredient>>>()
-            {
-                [IngredientType.Nut] = Tuple.Create(Nuts, new List<Ingredient>()),
-                [IngredientType.Impregnation] = Tuple.Create(Impregnations, new List<Ingredient>()),
-                [IngredientType.Infusion] = Tuple.Create(Infusions, new List<Ingredient>()),
-                [IngredientType.Custom] = Tuple.Create(Custom, new List<Ingredient>()),
-                [IngredientType.CandedFruit] = Tuple.Create(CandedFruits, new List<Ingredient>())
-            };
-            if (RecipeMaker.Recipe.Mass == 0) Message = "Введите состав шоколада";
+                Base = new List<MetaIngredient> { };
+                Nuts = new List<MetaIngredient> { };
+                Impregnations = new List<MetaIngredient> { };
+                Infusions = new List<MetaIngredient> { };
+                CandedFruits = new List<MetaIngredient> { };
+                Custom = new List<MetaIngredient> { };
+                Response.Redirect("/MainPage");
+            }
             else
-                RewriteMessage();
-            sessionHelper.AddRenewItem(name, this);
+            {
+                sessionHelper.ClearSession(name);
+                Base = metaIngredientRepository.FindBase();
+                Nuts = metaIngredientRepository.FindNuts();
+                Impregnations = metaIngredientRepository.FindImpregnations();
+                Infusions = metaIngredientRepository.FindInfusions();
+                CandedFruits = metaIngredientRepository.FindCandedFruits();
+                Custom = metaIngredientRepository.FindCustom();
+
+                RecipeMaker.GetBaseMetaIngredients(Base);
+                MessageDict = new()
+                {
+                    [IngredientType.Base] = "",
+                    [IngredientType.Nut] = "",
+                    [IngredientType.CandedFruit] = "",
+                    [IngredientType.Infusion] = "",
+                    [IngredientType.Impregnation] = "",
+                    [IngredientType.Custom] = ""
+                };
+
+                TypeDict = new Dictionary<IngredientType, Tuple<List<MetaIngredient>, List<Ingredient>>>()
+                {
+                    [IngredientType.Nut] = Tuple.Create(Nuts, new List<Ingredient>()),
+                    [IngredientType.Impregnation] = Tuple.Create(Impregnations, new List<Ingredient>()),
+                    [IngredientType.Infusion] = Tuple.Create(Infusions, new List<Ingredient>()),
+                    [IngredientType.Custom] = Tuple.Create(Custom, new List<Ingredient>()),
+                    [IngredientType.CandedFruit] = Tuple.Create(CandedFruits, new List<Ingredient>())
+                };
+
+                try
+                {
+                    oldRecipeId = int.Parse(Request.Query["RecipeId"]);
+                    RecipeMaker.Recipe = RecipeRepository.GetWithUserById(oldRecipeId);
+                }
+                catch(Exception ex)
+                {
+      
+                }
+               
+
+                if (RecipeMaker.Recipe.Mass == 0) Message = "Введите состав шоколада";
+                else
+                    MakeCompound();
+                sessionHelper.AddRenewItem(name, this);
+            }
         }
     }
 }

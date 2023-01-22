@@ -8,9 +8,11 @@ namespace FUNTIK.Pages;
 public class EditFileModel : PageModel
 {
     public int recipeId;
-    
+    public byte[] ImageData;
+
     private readonly IWebHostEnvironment _hostenvironment;
-        private IRecipeRepository recipeRepository;
+    private IRecipeRepository recipeRepository;
+
     public EditFileModel(IWebHostEnvironment webHostEnvironment, IRecipeRepository recipeRepository)
     {
         _hostenvironment = webHostEnvironment;
@@ -25,6 +27,14 @@ public class EditFileModel : PageModel
         FileUpload.FolderFileName = "success1.png";
         FileUpload.FolderFilePath = "succsess1.png";
         recipeId = int.Parse(Request.Query["RecipeId"]);
+        var recipe = recipeRepository.GetWithUserById(recipeId);
+        if (recipe != null && recipe.User.Email == User.Identity.Name)
+            ImageData = recipe.Photo;
+        else
+        {
+            ImageData = new byte[0];
+            Response.Redirect("/Identity/Account/AccessDenied0");
+        }
         //v ar a = OnGetDownloadFileFromFolder();
     }
 

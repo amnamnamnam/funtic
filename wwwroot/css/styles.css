@@ -55,7 +55,7 @@ h2 {
 
 .compound {
     width: 25%;
-    height: 93%;
+    height: 100%;
     overflow-y: scroll;
     scroll-behavior: smooth;
     color: #707070;
@@ -71,6 +71,7 @@ h2 {
     display: block;
     position: relative
 }
+
 
 .new_recipe {
     width: 18em;
@@ -88,6 +89,13 @@ h2 {
         background-color: #99eb8c;
         color: black;
     }
+
+.no_access {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin-top: 15em;
+}
 
 a {
     text-decoration: none;

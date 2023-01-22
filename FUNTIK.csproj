@@ -33,4 +33,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/anywork-ac-1.1.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

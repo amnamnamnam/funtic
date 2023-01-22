@@ -1,4 +1,4 @@
-Ôªøusing FUNTIK.Models;
+using FUNTIK.Models;
 
 namespace FUNTIK.GRASP
 {
@@ -26,15 +26,16 @@ namespace FUNTIK.GRASP
         public Ingredient cocoaDustIng;
         public Ingredient cocoaIng;
 
-        public Recipe Recipe { get; set;} = new Recipe();
+        public Recipe Recipe { get; set; } = new Recipe();
+
 
         public void GetBaseMetaIngredients(List<MetaIngredient> baseMetaIngredients)
         {
-            dryMilk = baseMetaIngredients.First(x => x.Name == "–ú–æ–ª–æ–∫–æ —Å—É—Ö–æ–µ");
-            cocoa = baseMetaIngredients.First(x => x.Name == "–ö–∞–∫–∞–æ —Ç—ë—Ä—Ç–æ–µ");
-            addedFats = baseMetaIngredients.First(x => x.Name == "–î–æ–±–∞–≤–æ—á–Ω–æ–µ –º–∞—Å–ª–æ");
-            sugar = baseMetaIngredients.First(y => y.Name == "–°–∞—Ö–∞—Ä");
-            cocoaDust = baseMetaIngredients.First(z => z.Name == "–ö–∞–∫–∞–æ-–ø–æ—Ä–æ—à–æ–∫");
+            dryMilk = baseMetaIngredients.First(x => x.Name == "ÃÓÎÓÍÓ ÒÛıÓÂ");
+            cocoa = baseMetaIngredients.First(x => x.Name == " ‡Í‡Ó Ú∏ÚÓÂ");
+            addedFats = baseMetaIngredients.First(x => x.Name == "ƒÓ·‡‚Ó˜ÌÓÂ Ï‡ÒÎÓ");
+            sugar = baseMetaIngredients.First(y => y.Name == "—‡ı‡");
+            cocoaDust = baseMetaIngredients.First(z => z.Name == " ‡Í‡Ó-ÔÓÓ¯ÓÍ");
 
             dryMilkIng = new Ingredient { MetaIngredient = dryMilk };
             cocoaIng = new Ingredient { MetaIngredient = cocoa };
@@ -61,7 +62,7 @@ namespace FUNTIK.GRASP
             cocoaIng.WeightInGrams = cocoaP * mass / 100;
             sugarIng.WeightInGrams = sugarP * mass / 100;
             dryMilkIng.WeightInGrams = milkP * mass / 100;
-            //AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, dryMilkIng, cocoaDustIng });
+            AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, dryMilkIng, cocoaDustIng });
 
         }
 
@@ -97,7 +98,7 @@ namespace FUNTIK.GRASP
     }
 
 
-    public class RecipeMaker: IRecipeMaker
+    public class RecipeMaker : IRecipeMaker
     {
         public MetaIngredient milk;
         public MetaIngredient cocoa;
@@ -113,15 +114,16 @@ namespace FUNTIK.GRASP
 
         public void GetBaseMetaIngredients(List<MetaIngredient> baseMetaIngredients)
         {
-            milk = baseMetaIngredients.First(x => x.Name == "–ú–æ–ª–æ–∫–æ");
-            cocoa = baseMetaIngredients.First(x => x.Name == "–ö–∞–∫–∞–æ —Ç—ë—Ä—Ç–æ–µ");
-            addedFats = baseMetaIngredients.First(x => x.Name == "–î–æ–±–∞–≤–æ—á–Ω–æ–µ –º–∞—Å–ª–æ");
-            sugar = baseMetaIngredients.First(y => y.Name == "–°–∞—Ö–∞—Ä");
-
+            milk = baseMetaIngredients.First(x => x.Name == "ÃÓÎÓÍÓ");
+            cocoa = baseMetaIngredients.First(x => x.Name == " ‡Í‡Ó Ú∏ÚÓÂ/Í‡Í‡Ó-·Ó·˚");
+            addedFats = baseMetaIngredients.First(x => x.Name == " ‡Í‡Ó-Ï‡ÒÎÓ");
+            sugar = baseMetaIngredients.First(y => y.Name == "—‡ı‡");
+            
             milkIng = new Ingredient { MetaIngredient = milk };
             cocoaIng = new Ingredient { MetaIngredient = cocoa };
             addedFatsIng = new Ingredient { MetaIngredient = addedFats };
             sugarIng = new Ingredient { MetaIngredient = sugar };
+
         }
 
 
@@ -134,12 +136,11 @@ namespace FUNTIK.GRASP
             var milkP = baseParams["milkP"];
             Recipe.Mass = mass;
             Recipe.CacaoPercent = cocoaP;
-            var addedFatsPercent = fatsP - cocoaP * 53 / 100;
-            addedFatsIng.WeightInGrams = addedFatsPercent * mass / 100;
+            addedFatsIng.WeightInGrams = fatsP * mass / 100;
             cocoaIng.WeightInGrams = cocoaP * mass / 100;
             sugarIng.WeightInGrams = sugarP * mass / 100;
             milkIng.WeightInGrams = milkP * mass / 100;
-            //AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, milkIng });
+            AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, milkIng });
         }
 
         public void AddIngredients(List<Ingredient> ingredients)
@@ -167,7 +168,8 @@ namespace FUNTIK.GRASP
 
         public void CompileRecipe()
         {
-            AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, milkIng });
+            return;
+            //AddIngredients(new List<Ingredient> { addedFatsIng, cocoaIng, sugarIng, milkIng });
         }
     }
 }

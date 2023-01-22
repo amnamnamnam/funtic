@@ -112,7 +112,7 @@ namespace FUNTIK.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Изменения сохранены";
             return RedirectToPage();
         }
     }
