@@ -21,7 +21,7 @@
 
 
 
- <img src="data:image/png;base64,@Convert.ToBase64String(Model.ImageData)" alt="My Image" />
+ <div id="original-image"> <img src="data:image/png;base64,@Convert.ToBase64String(Model.ImageData)" alt="My Image"/> </div>
 
  <form enctype="multipart/form-data" method="post">
      <table class="table">
@@ -29,8 +29,7 @@
 
         </tr>
           <tr>
-              <td>Folder</td>
-                <a download href="@Url.Page("EditFile", "DownloadFileFromFolder", new { recipeId = Model.recipeId})">Загрузить этикетку</a>
+                <a download href="@Url.Page("EditFile", "DownloadFileFromFolder", new { recipeId = Model.recipeId})">Загрузить этикетку на компьютер</a>
          </tr> 
      </table> 
  </form >

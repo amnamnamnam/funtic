@@ -27,7 +27,7 @@ namespace FUNTIK.GRASP
         public string CreateLabelString()
         {
             Random rnd = new Random();
-            return $"{ recipe.Name } \n\rСодержание какао-продуктов не менее { recipe.CacaoPercent} %. \n\rСостав: { String.Join(", ", recipe.Ingredients.Where(x => x.MetaIngredient.Type == IngredientType.Base).Select(x => x.Name).ToArray()) } \n\r{ String.Join(", ", recipe.Ingredients.Where(x => x.MetaIngredient.Type != IngredientType.Base).Select(x => x.Name).ToArray()) }\n\rКалорийность на 100 гр продукта: {598 + rnd.Next(-50, 50)} кКал. Срок хранения { recipe.ShelfLife }. Хранить в прохладном, сухом месте, вдали от чрезмерной жары или влажности. Идеальная температура для хранения шоколада составляет 18-20 градусов. Контакты: { user.Contacts }. \n\rМасса нетто: { recipe.Mass } гр.";
+            return $"{ recipe.Name } \n\rСодержание какао-продуктов не менее { recipe.CacaoPercent} %. \n\rСостав: { String.Join(", ", recipe.Ingredients.Where(x => x.MetaIngredient.Type == IngredientType.Base).Select(x => x.Name).ToArray()) } \n\r{ String.Join(", ", recipe.Ingredients.Where(x => x.MetaIngredient.Type != IngredientType.Base).Select(x => x.Name).ToArray()) }\n\rКалорийность на 100 гр продукта: {598 + rnd.Next(-50, 50)} кКал. Срок хранения { recipe.ShelfLife }. Хранить в прохладном, сухом месте, вдали от чрезмерной жары или влажности. Идеальная температура для хранения шоколада составляет 18-20 градусов. Контакты: { user.Contacts }. Масса нетто: { recipe.Mass } гр.";
         }
 
         public string AddCookingDate(string labelString, string cookingDate)

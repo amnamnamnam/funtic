@@ -2,6 +2,10 @@
 using FUNTIK.Models.Repositories;
 using FUNTIK.Models;
 using Microsoft.AspNetCore.Mvc;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats.Png;
 
 namespace FUNTIK.Pages;
 
@@ -38,6 +42,26 @@ public class EditFileModel : PageModel
         //v ar a = OnGetDownloadFileFromFolder();
     }
 
+    public byte[] Merge(byte[] byteImg)
+    {
+        var img1 = Image.Load<Rgba32>(byteImg);
+
+        using (Image<Rgba32> outputImage = new Image<Rgba32>(200, 150)) 
+        { 
+            img1.Mutate(o => o.Resize(new Size(100, 150)));
+
+            outputImage.Mutate(o => o
+                .DrawImage(img1, new Point(0, 0), 1f) // draw the first one top left
+                .DrawImage(img1, new Point(100, 0), 1f) // draw the second next to it
+            );
+
+            using (var ms = new MemoryStream())
+            {
+                outputImage.Save(ms, new PngEncoder());
+                return ms.ToArray();
+            }
+        }
+    }
 
     public FileResult OnGetDownloadFileFromFolder(int recipeId)
     {
